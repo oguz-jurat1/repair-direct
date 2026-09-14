@@ -131,7 +131,7 @@
     .top-1\/2 { top: 50%; }
     .translate-y-1\/2 { transform: translateY(50%); }
     .-translate-y-1\/2 { transform: translateY(-50%); }
-    .accent-\[\#E85D2F\] { accent-color: #E85D2F; }
+    .accent-\[\#19509F\] { accent-color: #19509F; }
     .whitespace-normal { white-space: normal; }
 
     /* ---------- 文本 ---------- */
@@ -152,10 +152,10 @@
     .bg-white { background-color: #FFFFFF; }
     .bg-card { background-color: #FFFFFF; }
     .bg-chip { background-color: #F5F5F5; }
-    .bg-primary { background-color: #E85D2F; }
-    .bg-primary-light { background-color: #FFF0EB; }
+    .bg-primary { background-color: #19509F; }
+    .bg-primary-light { background-color: #EAF1FA; }
     .bg-success { background-color: #52C41A; }
-    .bg-primary\/10 { background-color: rgba(232, 93, 47, 0.1); }
+    .bg-primary\/10 { background-color: rgba(25, 80, 159, 0.1); }
     .bg-black\/40 { background-color: rgba(0, 0, 0, 0.4); }
     .bg-gray-50 { background-color: #F9FAFB; }
     .bg-amber-50 { background-color: #FFFBEB; }
@@ -164,7 +164,7 @@
     .bg-green-500 { background-color: #22C55E; }
     .text-white { color: #FFFFFF; }
     .text-white\/90 { color: rgba(255, 255, 255, 0.9); }
-    .text-primary { color: #E85D2F; }
+    .text-primary { color: #19509F; }
     .text-text { color: #333333; }
     .text-text-secondary { color: #666666; }
     .text-text-muted { color: #999999; }
@@ -177,16 +177,16 @@
 
     /* ---------- 背景渐变（顶部标题区） ---------- */
     .bg-gradient-to-r { background-image: linear-gradient(to right, var(--tw-gradient-stops)); }
-    .from-primary { --tw-gradient-from: #E85D2F; --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(232, 93, 47, 0)); }
-    .to-\[\#FF7043\] { --tw-gradient-to: #FF7043; --tw-gradient-stops: var(--tw-gradient-from, rgba(255, 112, 67, 0)), var(--tw-gradient-to); }
+    .from-primary { --tw-gradient-from: #19509F; --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(25, 80, 159, 0)); }
+    .to-\[\#3B6FB6\] { --tw-gradient-to: #3B6FB6; --tw-gradient-stops: var(--tw-gradient-from, rgba(59, 111, 182, 0)), var(--tw-gradient-to); }
 
     /* ---------- 边框 / 圆角 ---------- */
     .border { border-width: 1px; border-style: solid; }
     .border-b { border-bottom-width: 1px; border-bottom-style: solid; }
     .border-t { border-top-width: 1px; border-top-style: solid; }
     .border-divider { border-color: #EEEEEE; }
-    .border-primary { border-color: #E85D2F; }
-    .border-primary\/20 { border-color: rgba(232, 93, 47, 0.2); }
+    .border-primary { border-color: #19509F; }
+    .border-primary\/20 { border-color: rgba(25, 80, 159, 0.2); }
     .border-red-200 { border-color: #FECACA; }
     .border-transparent { border-color: transparent; }
     .rounded-xl { border-radius: 0.75rem; }
@@ -233,7 +233,7 @@
       transition: all 0.2s ease;
     }
     .district-chip.active {
-      background: #E85D2F;
+      background: #19509F;
       color: white;
     }
     .community-card {
@@ -263,8 +263,8 @@
     }
     .search-input:focus {
       outline: none;
-      border-color: #E85D2F;
-      box-shadow: 0 0 0 3px rgba(232, 93, 47, 0.1);
+      border-color: #19509F;
+      box-shadow: 0 0 0 3px rgba(25, 80, 159, 0.1);
     }
     .empty-state-icon {
       width: 120px;
@@ -291,13 +291,200 @@
       animation: highlightPulse 2s ease-out;
     }
     @keyframes highlightPulse {
-      0% { background-color: #FFF0EB; }
+      0% { background-color: #EAF1FA; }
       100% { background-color: white; }
     }
     .tag-badge {
       font-size: 10px;
       padding: 2px 6px;
       border-radius: 4px;
+    }
+
+    /* ---------- 地图视图（首屏） ---------- */
+    .nj-district-group {
+      cursor: pointer;
+      outline: none;
+    }
+    .nj-district-group .nj-district {
+      transition: fill 0.15s ease;
+    }
+    .nj-district-group:hover .nj-district {
+      fill: #A9C3E8;
+    }
+    .nj-district-group:focus-visible .nj-district {
+      stroke: #19509F;
+      stroke-width: 2.5;
+    }
+    .nj-district-group.located .nj-district {
+      fill: #19509F;
+    }
+    .nj-district-group.located:hover .nj-district {
+      fill: #19509F;
+    }
+    .nj-district-label {
+      font-size: 10px;
+      font-weight: 600;
+      fill: #374151;
+      text-anchor: middle;
+      paint-order: stroke;
+      stroke: #ffffff;
+      stroke-width: 2.5;
+      pointer-events: none;
+      user-select: none;
+    }
+    .nj-district-note {
+      font-size: 7px;
+      fill: #6B7280;
+      text-anchor: middle;
+      pointer-events: none;
+      user-select: none;
+    }
+    .nj-badge {
+      pointer-events: none;
+    }
+    .nj-badge circle {
+      fill: #19509F;
+      stroke: #ffffff;
+      stroke-width: 1.5;
+    }
+    .nj-badge text {
+      fill: #ffffff;
+      font-size: 9px;
+      font-weight: 700;
+      text-anchor: middle;
+    }
+    .nj-badge.nj-badge-empty {
+      display: none;
+    }
+    .nj-badge.nj-badge-rich circle {
+      fill: #52C41A;
+    }
+    .nj-district-group.located .nj-district-label {
+      fill: #ffffff;
+      stroke: rgba(0, 0, 0, 0.15);
+    }
+    .nj-district-group.located .nj-badge circle {
+      fill: #ffffff;
+      stroke: #19509F;
+    }
+    .nj-district-group.located .nj-badge text {
+      fill: #19509F;
+    }
+
+    /* ========== V2: 小区点位 ========== */
+    .nj-community-point {
+      cursor: pointer;
+      pointer-events: all;
+    }
+    .nj-community-point:focus-visible {
+      outline: none;
+    }
+    .nj-community-point:focus-visible .nj-community-dot {
+      stroke: #19509F;
+      stroke-width: 2;
+    }
+    .nj-community-hit {
+      fill: rgba(0, 0, 0, 0);
+      pointer-events: all;
+    }
+    .nj-community-dot {
+      fill: #9CA3AF;
+      stroke: #ffffff;
+      stroke-width: 1.5;
+      pointer-events: none;
+      transition: r 0.15s ease, fill 0.2s ease;
+    }
+    .nj-community-point.rich .nj-community-dot {
+      fill: #34A853;
+    }
+    .nj-community-point:hover .nj-community-dot {
+      r: 7;
+      stroke-width: 2;
+    }
+    .nj-community-point.located .nj-community-dot {
+      r: 8.5;
+      fill: #19509F;
+      stroke: #ffffff;
+      stroke-width: 2;
+      animation: pointPulse 1.6s ease-out infinite;
+    }
+    @keyframes pointPulse {
+      0% { r: 8.5; opacity: 1; }
+      50% { r: 11; opacity: 0.75; }
+      100% { r: 8.5; opacity: 1; }
+    }
+    .legend-dot {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border-radius: 9999px;
+      border: 1.5px solid #ffffff;
+      box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.12);
+    }
+    .legend-dot-rich {
+      background: #34A853;
+    }
+    .legend-dot-recruiting {
+      background: #9CA3AF;
+    }
+
+    /* ========== V2: 详情卡片 ========== */
+    .detail-card {
+      position: relative;
+      background: rgba(255, 255, 255, 0.82);
+      -webkit-backdrop-filter: blur(14px);
+      backdrop-filter: blur(14px);
+      border: 1px solid rgba(25, 80, 159, 0.12);
+      border-radius: 1.25rem;
+      box-shadow: 0 12px 32px rgba(15, 40, 80, 0.14);
+      padding: 1.25rem 1.25rem 1.5rem;
+      animation: cardIn 0.32s ease-out both;
+    }
+    .detail-card-placeholder {
+      border: 1.5px dashed rgba(25, 80, 159, 0.3);
+      border-radius: 1.25rem;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      color: #64748B;
+    }
+    @keyframes cardIn {
+      from { opacity: 0; transform: translateY(14px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .view-fade {
+      animation: viewFade 0.25s ease-out both;
+    }
+    @keyframes viewFade {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ========== V2: 桌面双栏 ========== */
+    @media (min-width: 768px) {
+      #app.max-w-2xl {
+        max-width: 76rem;
+      }
+      #mainLayout {
+        display: flex;
+        gap: 1.5rem;
+        align-items: flex-start;
+      }
+      #mainLayout > #viewMap {
+        flex: 1.15;
+        min-width: 0;
+      }
+      #mainLayout > #viewDetail {
+        flex: 0.85;
+        min-width: 0;
+        position: sticky;
+        top: 1rem;
+        max-height: calc(100dvh - 2rem);
+        overflow-y: auto;
+      }
+      #mainLayout > #viewDetail .detail-card {
+        position: sticky;
+        top: 0;
+      }
     }
   </style>
 </head>
@@ -308,7 +495,7 @@
     <!-- 顶部区（粘性） -->
     <div class="sticky-header" data-page-node-id="3YNgeLowzpd1fW4w98F8It">
       <!-- 标题区 -->
-      <div class="bg-gradient-to-r from-primary to-[#FF7043] px-4 pt-6 pb-5" data-page-node-id="vXCFCK19l0sfmyPsTIMyn6">
+      <div class="bg-gradient-to-r from-primary to-[#3B6FB6] px-4 pt-6 pb-5" data-page-node-id="vXCFCK19l0sfmyPsTIMyn6">
         <div class="flex items-center gap-2 mb-1" data-page-node-id="GDbk5r11vNbHJvSHmGpMm5">
           <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" data-page-node-id="HrccYdTQB8QJAlDCPn7Fc4">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" data-page-node-id="vrar46n4J0Rk7F05HIb3WB"></path>
@@ -339,46 +526,157 @@
         </div>
       </div>
       
-      <!-- 区域筛选chips -->
-      <div class="px-4 pb-3 bg-white" data-page-node-id="Eowh2HdxBw2P1voURmZWfh">
-        <div id="chipsContainer" class="chips-container flex gap-2 overflow-x-auto py-1" data-page-node-id="URGsGUa7zko6CkJ7yE54sE">
-          <!-- chips 由JS生成 -->
-        </div>
-      </div>
     </div>
     
-    <!-- 定位按钮区 -->
-    <div class="px-4 py-3" data-page-node-id="9KNdF24xVIy1O0KdZAbHpj">
-      <button id="locateBtn" class="w-full flex items-center justify-center gap-2 py-3 bg-primary-light border border-primary/20 rounded-xl text-primary font-medium text-sm" data-page-node-id="k7OgzCXOduPeBrju9oVBF2">
+    <!-- 主布局（桌面双栏：左地图 + 右详情） -->
+    <div id="mainLayout">
+    <!-- 地图视图（首屏） -->
+    <div id="viewMap" class="px-4 pt-3" data-page-node-id="9KNdF24xVIy1O0KdZAbHpj">
+      <button id="locateBtn" class="w-full flex items-center justify-center gap-2 py-3.5 bg-primary text-white rounded-2xl shadow-sm font-medium text-base" data-page-node-id="k7OgzCXOduPeBrju9oVBF2">
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" data-page-node-id="N5dgsRyygp3hOtZOxIW0VV">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" data-page-node-id="P1UbB4elrnPaj8NrCSHgdc"></path>
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" data-page-node-id="u1oHTxBF3HhOgnloteEAfh"></path>
         </svg>
-        定位到我所在小区
+        定位到我
       </button>
       <p id="locationResult" class="text-center text-text-muted text-xs mt-2 min-h-[16px]" data-page-node-id="gh5aCLz7hN2rAaMKalyvK0"></p>
-    </div>
-    
-    <!-- 小区列表区 -->
-    <div id="communityList" class="px-4 pb-8" data-page-node-id="6AYA3q5Ok3GxBHMPzbcde6">
-      <!-- 由JS生成 -->
-    </div>
-    
-    <!-- 空状态 -->
-    <div id="emptyState" class="hidden px-4 py-12 text-center" data-page-node-id="LQuyFb4HHZFhuZsOmfkkC7">
-      <div class="empty-state-icon mx-auto mb-4" data-page-node-id="Um7zrjuJgYbkVuM7Rq62FN">
-        <svg class="w-full h-full text-text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24" data-page-node-id="3rvwBqw4E7W3BBPzFHc9UB">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" data-page-node-id="zH7jfEvbrcBQFLkp0Coaq4"></path>
-          <circle cx="12" cy="12" r="10" stroke-width="1" stroke-dasharray="4 4" data-page-node-id="DNjGqja9EDawVS6cuLoivc"></circle>
+      <div class="mt-3 bg-white rounded-2xl border border-divider p-3">
+        <div class="flex items-center justify-between mb-2">
+          <p class="text-text font-medium text-sm">选择你所在的小区</p>
+        </div>
+        <svg id="njMap" class="w-full h-auto" viewBox="0 0 360 440" role="img" aria-label="南京市行政区示意图">
+          <!-- 长江示意（装饰） -->
+          <path d="M70,440 C65,390 95,360 88,310 C82,270 110,248 104,205 C99,172 128,152 148,122 C162,100 190,95 198,72 C204,55 225,45 245,25" fill="none" stroke="#BFDBFE" stroke-width="12" stroke-linecap="round" opacity="0.5"></path>
+          <!-- 六合区 -->
+          <g class="nj-district-group" data-district="六合区" role="button" tabindex="0" aria-label="选择 六合区">
+            <path class="nj-district" d="M15,45 L50,12 L120,10 L165,28 L160,72 L120,95 L75,88 L30,75 Z" fill="#FDEBD0" stroke="#D1D5DB" stroke-width="1"></path>
+            <text class="nj-district-label" x="85" y="48">六合区</text>
+            <text class="nj-district-note" x="85" y="61"></text>
+            <g class="nj-badge nj-badge-empty"><circle cx="150" cy="18" r="9"></circle><text x="150" y="21">0</text></g>
+          </g>
+          <!-- 栖霞区 -->
+          <g class="nj-district-group" data-district="栖霞区" role="button" tabindex="0" aria-label="选择 栖霞区">
+            <path class="nj-district" d="M165,25 L215,8 L280,22 L305,58 L295,105 L250,118 L190,105 L162,75 Z" fill="#FCE4EC" stroke="#D1D5DB" stroke-width="1"></path>
+            <text class="nj-district-label" x="235" y="52">栖霞区</text>
+            <text class="nj-district-note" x="235" y="65"></text>
+            <g class="nj-badge nj-badge-empty"><circle cx="292" cy="28" r="9"></circle><text x="292" y="31">0</text></g>
+          </g>
+          <!-- 浦口区（含江北新区） -->
+          <g class="nj-district-group" data-district="浦口区" role="button" tabindex="0" aria-label="选择 浦口区">
+            <path class="nj-district" d="M18,95 L70,88 L118,95 L155,112 L150,168 L128,210 L85,218 L35,200 L12,150 Z" fill="#FFF3E0" stroke="#D1D5DB" stroke-width="1"></path>
+            <text class="nj-district-label" x="80" y="150">浦口区</text>
+            <text class="nj-district-note" x="80" y="163"></text>
+            <g class="nj-badge nj-badge-empty"><circle cx="142" cy="100" r="9"></circle><text x="142" y="103">0</text></g>
+          </g>
+          <!-- 鼓楼区 -->
+          <g class="nj-district-group" data-district="鼓楼区" role="button" tabindex="0" aria-label="选择 鼓楼区">
+            <path class="nj-district" d="M155,115 L205,108 L215,150 L192,182 L155,170 Z" fill="#FBE9E7" stroke="#D1D5DB" stroke-width="1"></path>
+            <text class="nj-district-label" x="182" y="142">鼓楼区</text>
+            <text class="nj-district-note" x="182" y="155"></text>
+            <g class="nj-badge nj-badge-empty"><circle cx="208" cy="112" r="9"></circle><text x="208" y="115">0</text></g>
+          </g>
+          <!-- 玄武区 -->
+          <g class="nj-district-group" data-district="玄武区" role="button" tabindex="0" aria-label="选择 玄武区">
+            <path class="nj-district" d="M207,105 L262,98 L272,138 L235,160 L212,148 Z" fill="#F1F8E9" stroke="#D1D5DB" stroke-width="1"></path>
+            <text class="nj-district-label" x="238" y="126">玄武区</text>
+            <text class="nj-district-note" x="238" y="139"></text>
+            <g class="nj-badge nj-badge-empty"><circle cx="262" cy="102" r="9"></circle><text x="262" y="105">0</text></g>
+          </g>
+          <!-- 建邺区 -->
+          <g class="nj-district-group" data-district="建邺区" role="button" tabindex="0" aria-label="选择 建邺区">
+            <path class="nj-district" d="M122,212 L178,190 L188,232 L165,262 L112,252 L100,228 Z" fill="#E3F2FD" stroke="#D1D5DB" stroke-width="1"></path>
+            <text class="nj-district-label" x="148" y="226">建邺区</text>
+            <text class="nj-district-note" x="148" y="239"></text>
+            <g class="nj-badge nj-badge-empty"><circle cx="178" cy="194" r="9"></circle><text x="178" y="197">0</text></g>
+          </g>
+          <!-- 秦淮区 -->
+          <g class="nj-district-group" data-district="秦淮区" role="button" tabindex="0" aria-label="选择 秦淮区">
+            <path class="nj-district" d="M188,192 L242,182 L258,222 L232,258 L192,252 L180,218 Z" fill="#FFF8E1" stroke="#D1D5DB" stroke-width="1"></path>
+            <text class="nj-district-label" x="216" y="218">秦淮区</text>
+            <text class="nj-district-note" x="216" y="231"></text>
+            <g class="nj-badge nj-badge-empty"><circle cx="242" cy="186" r="9"></circle><text x="242" y="189">0</text></g>
+          </g>
+          <!-- 雨花台区 -->
+          <g class="nj-district-group" data-district="雨花台区" role="button" tabindex="0" aria-label="选择 雨花台区">
+            <path class="nj-district" d="M108,258 L198,258 L218,288 L192,322 L128,315 L100,288 Z" fill="#E8F5E9" stroke="#D1D5DB" stroke-width="1"></path>
+            <text class="nj-district-label" x="158" y="288">雨花台区</text>
+            <text class="nj-district-note" x="158" y="301"></text>
+            <g class="nj-badge nj-badge-empty"><circle cx="198" cy="262" r="9"></circle><text x="198" y="265">0</text></g>
+          </g>
+          <!-- 江宁区 -->
+          <g class="nj-district-group" data-district="江宁区" role="button" tabindex="0" aria-label="选择 江宁区">
+            <path class="nj-district" d="M238,185 L315,175 L348,235 L342,318 L305,360 L258,342 L248,302 L228,262 Z" fill="#E8EAF6" stroke="#D1D5DB" stroke-width="1"></path>
+            <text class="nj-district-label" x="288" y="262">江宁区</text>
+            <text class="nj-district-note" x="288" y="275"></text>
+            <g class="nj-badge nj-badge-empty"><circle cx="318" cy="180" r="9"></circle><text x="318" y="183">0</text></g>
+          </g>
+          <!-- 溧水区 -->
+          <g class="nj-district-group" data-district="溧水区" role="button" tabindex="0" aria-label="选择 溧水区">
+            <path class="nj-district" d="M92,322 L212,322 L242,358 L228,420 L135,430 L78,395 L72,350 Z" fill="#F3E5F5" stroke="#D1D5DB" stroke-width="1"></path>
+            <text class="nj-district-label" x="158" y="376">溧水区</text>
+            <text class="nj-district-note" x="158" y="389"></text>
+            <g class="nj-badge nj-badge-empty"><circle cx="212" cy="326" r="9"></circle><text x="212" y="329">0</text></g>
+          </g>
+          <!-- 高淳区 -->
+          <g class="nj-district-group" data-district="高淳区" role="button" tabindex="0" aria-label="选择 高淳区">
+            <path class="nj-district" d="M242,362 L330,352 L348,415 L292,436 L238,418 Z" fill="#E0F2F1" stroke="#D1D5DB" stroke-width="1"></path>
+            <text class="nj-district-label" x="290" y="394">高淳区</text>
+            <text class="nj-district-note" x="290" y="407"></text>
+            <g class="nj-badge nj-badge-empty"><circle cx="330" cy="356" r="9"></circle><text x="330" y="359">0</text></g>
+          </g>
+          <!-- 小区点位（34个）：绿点=有师傅，灰点=招募中 -->
+          <g class="nj-community-point" data-comm-id="c1" role="button" tabindex="0" aria-label="中建国熙台（建熙花苑）"><circle class="nj-community-hit" cx="62" cy="165" r="11"></circle><circle class="nj-community-dot" cx="62" cy="165" r="5"></circle></g>
+          <g class="nj-community-point" data-comm-id="c2" role="button" tabindex="0" aria-label="中建熙元府"><circle class="nj-community-hit" cx="70" cy="158" r="11"></circle><circle class="nj-community-dot" cx="70" cy="158" r="5"></circle></g>
+          <g class="nj-community-point" data-comm-id="c3" role="button" tabindex="0" aria-label="中建国熙公馆"><circle class="nj-community-hit" cx="115" cy="108" r="11"></circle><circle class="nj-community-dot" cx="115" cy="108" r="5"></circle></g>
+          <g class="nj-community-point" data-comm-id="c4" role="button" tabindex="0" aria-label="中建翰林雅境"><circle class="nj-community-hit" cx="55" cy="172" r="11"></circle><circle class="nj-community-dot" cx="55" cy="172" r="5"></circle></g>
+          <g class="nj-community-point" data-comm-id="c5" role="button" tabindex="0" aria-label="山一方"><circle class="nj-community-hit" cx="345" cy="42" r="11"></circle><circle class="nj-community-dot" cx="345" cy="42" r="5"></circle></g>
+          <g class="nj-community-point" data-comm-id="c6" role="button" tabindex="0" aria-label="红山韵致居"><circle class="nj-community-hit" cx="240" cy="112" r="11"></circle><circle class="nj-community-dot" cx="240" cy="112" r="5"></circle></g>
+          <g class="nj-community-point" data-comm-id="c7" role="button" tabindex="0" aria-label="雯锦雅苑"><circle class="nj-community-hit" cx="252" cy="120" r="11"></circle><circle class="nj-community-dot" cx="252" cy="120" r="5"></circle></g>
+          <g class="nj-community-point" data-comm-id="c8" role="button" tabindex="0" aria-label="月光广场"><circle class="nj-community-hit" cx="168" cy="150" r="11"></circle><circle class="nj-community-dot" cx="168" cy="150" r="5"></circle></g>
+          <g class="nj-community-point" data-comm-id="c9" role="button" tabindex="0" aria-label="定淮门3号"><circle class="nj-community-hit" cx="160" cy="142" r="11"></circle><circle class="nj-community-dot" cx="160" cy="142" r="5"></circle></g>
+          <g class="nj-community-point" data-comm-id="c10" role="button" tabindex="0" aria-label="燕禾园"><circle class="nj-community-hit" cx="198" cy="118" r="11"></circle><circle class="nj-community-dot" cx="198" cy="118" r="5"></circle></g>
+          <g class="nj-community-point" data-comm-id="c11" role="button" tabindex="0" aria-label="银河湾卓苑"><circle class="nj-community-hit" cx="270" cy="80" r="11"></circle><circle class="nj-community-dot" cx="270" cy="80" r="5"></circle></g>
+          <g class="nj-community-point" data-comm-id="c12" role="button" tabindex="0" aria-label="南湖春晓"><circle class="nj-community-hit" cx="128" cy="235" r="11"></circle><circle class="nj-community-dot" cx="128" cy="235" r="5"></circle></g>
+          <g class="nj-community-point" data-comm-id="c13" role="button" tabindex="0" aria-label="四方八村"><circle class="nj-community-hit" cx="205" cy="210" r="11"></circle><circle class="nj-community-dot" cx="205" cy="210" r="5"></circle></g>
+          <g class="nj-community-point" data-comm-id="c14" role="button" tabindex="0" aria-label="常府街29号"><circle class="nj-community-hit" cx="225" cy="205" r="11"></circle><circle class="nj-community-dot" cx="225" cy="205" r="5"></circle></g>
+          <g class="nj-community-point" data-comm-id="c15" role="button" tabindex="0" aria-label="华盛园"><circle class="nj-community-hit" cx="240" cy="232" r="11"></circle><circle class="nj-community-dot" cx="240" cy="232" r="5"></circle></g>
+          <g class="nj-community-point" data-comm-id="c16" role="button" tabindex="0" aria-label="逸仙名居"><circle class="nj-community-hit" cx="218" cy="200" r="11"></circle><circle class="nj-community-dot" cx="218" cy="200" r="5"></circle></g>
+          <g class="nj-community-point" data-comm-id="c17" role="button" tabindex="0" aria-label="科巷新寓"><circle class="nj-community-hit" cx="210" cy="195" r="11"></circle><circle class="nj-community-dot" cx="210" cy="195" r="5"></circle></g>
+          <g class="nj-community-point" data-comm-id="c18" role="button" tabindex="0" aria-label="梁台煦府"><circle class="nj-community-hit" cx="318" cy="300" r="11"></circle><circle class="nj-community-dot" cx="318" cy="300" r="5"></circle></g>
+          <g class="nj-community-point" data-comm-id="c19" role="button" tabindex="0" aria-label="东城风景"><circle class="nj-community-hit" cx="305" cy="268" r="11"></circle><circle class="nj-community-dot" cx="305" cy="268" r="5"></circle></g>
+          <g class="nj-community-point" data-comm-id="c20" role="button" tabindex="0" aria-label="水月秦淮"><circle class="nj-community-hit" cx="288" cy="262" r="11"></circle><circle class="nj-community-dot" cx="288" cy="262" r="5"></circle></g>
+          <g class="nj-community-point" data-comm-id="c21" role="button" tabindex="0" aria-label="恒生阳光城"><circle class="nj-community-hit" cx="278" cy="290" r="11"></circle><circle class="nj-community-dot" cx="278" cy="290" r="5"></circle></g>
+          <g class="nj-community-point" data-comm-id="c22" role="button" tabindex="0" aria-label="岱善润福城"><circle class="nj-community-hit" cx="128" cy="288" r="11"></circle><circle class="nj-community-dot" cx="128" cy="288" r="5"></circle></g>
+          <g class="nj-community-point" data-comm-id="c23" role="button" tabindex="0" aria-label="蓝岸3G"><circle class="nj-community-hit" cx="150" cy="275" r="11"></circle><circle class="nj-community-dot" cx="150" cy="275" r="5"></circle></g>
+          <g class="nj-community-point" data-comm-id="c24" role="button" tabindex="0" aria-label="蓝岸尚城"><circle class="nj-community-hit" cx="142" cy="280" r="11"></circle><circle class="nj-community-dot" cx="142" cy="280" r="5"></circle></g>
+          <g class="nj-community-point" data-comm-id="c25" role="button" tabindex="0" aria-label="德安花园"><circle class="nj-community-hit" cx="135" cy="268" r="11"></circle><circle class="nj-community-dot" cx="135" cy="268" r="5"></circle></g>
+          <g class="nj-community-point" data-comm-id="c26" role="button" tabindex="0" aria-label="世纪花园"><circle class="nj-community-hit" cx="150" cy="160" r="11"></circle><circle class="nj-community-dot" cx="150" cy="160" r="5"></circle></g>
+          <g class="nj-community-point" data-comm-id="c27" role="button" tabindex="0" aria-label="江苏路60号"><circle class="nj-community-hit" cx="185" cy="132" r="11"></circle><circle class="nj-community-dot" cx="185" cy="132" r="5"></circle></g>
+          <g class="nj-community-point" data-comm-id="c28" role="button" tabindex="0" aria-label="龙凤花园"><circle class="nj-community-hit" cx="170" cy="155" r="11"></circle><circle class="nj-community-dot" cx="170" cy="155" r="5"></circle></g>
+          <g class="nj-community-point" data-comm-id="c29" role="button" tabindex="0" aria-label="佳日雅苑"><circle class="nj-community-hit" cx="245" cy="235" r="11"></circle><circle class="nj-community-dot" cx="245" cy="235" r="5"></circle></g>
+          <g class="nj-community-point" data-comm-id="c30" role="button" tabindex="0" aria-label="龙翔雅苑"><circle class="nj-community-hit" cx="230" cy="250" r="11"></circle><circle class="nj-community-dot" cx="230" cy="250" r="5"></circle></g>
+          <g class="nj-community-point" data-comm-id="c31" role="button" tabindex="0" aria-label="御水湾"><circle class="nj-community-hit" cx="252" cy="228" r="11"></circle><circle class="nj-community-dot" cx="252" cy="228" r="5"></circle></g>
+          <g class="nj-community-point" data-comm-id="c32" role="button" tabindex="0" aria-label="中和桥五号"><circle class="nj-community-hit" cx="222" cy="252" r="11"></circle><circle class="nj-community-dot" cx="222" cy="252" r="5"></circle></g>
+          <g class="nj-community-point" data-comm-id="c33" role="button" tabindex="0" aria-label="风光里二期"><circle class="nj-community-hit" cx="216" cy="258" r="11"></circle><circle class="nj-community-dot" cx="216" cy="258" r="5"></circle></g>
+          <g class="nj-community-point" data-comm-id="c34" role="button" tabindex="0" aria-label="古林社区"><circle class="nj-community-hit" cx="168" cy="138" r="11"></circle><circle class="nj-community-dot" cx="168" cy="138" r="5"></circle></g>
         </svg>
-      </div>
-      <h3 class="text-text font-medium mb-2" data-page-node-id="0Aq3d8fYCRM0Vlm1EqLLHB">没有找到匹配的小区</h3>
-      <p class="text-text-muted text-sm mb-4" data-page-node-id="MsXUDNvp8k5J3fWfASNkV3">试试搜索小区名的一部分，或切换行政区域</p>
-      <div class="bg-primary-light rounded-xl p-4 text-left" data-page-node-id="GzQPOV1oW6nC3sC5R0Z5wl">
-        <p class="text-primary text-sm font-medium mb-1" data-page-node-id="jmG8qD4DmomwFE9ggaxiGD">需要更多帮助？</p>
-        <p class="text-text-secondary text-xs" data-page-node-id="sx2ZuKWIMdc9OLnz6NHA2i">请联系您的宁家保服务专员，或拨打客服热线咨询</p>
+        <p class="text-center text-text-muted text-[11px] mt-2">点击地图上的小区点位查看师傅</p>
+        <div class="flex items-center justify-center gap-4 mt-2">
+          <span class="inline-flex items-center gap-1.5 text-text-muted text-[11px]">
+            <span class="legend-dot legend-dot-rich"></span>有师傅
+          </span>
+          <span class="inline-flex items-center gap-1.5 text-text-muted text-[11px]">
+            <span class="legend-dot legend-dot-recruiting"></span>招募中
+          </span>
+        </div>
       </div>
     </div>
+    
+    <!-- 小区详情卡片（唯一） -->
+    <div id="viewDetail" class="px-4 pt-3 pb-8">
+      <div id="detailContent"></div>
+    </div>
+    </div><!-- /mainLayout -->
     
     <!-- 底部信息区 -->
     <div class="bg-chip px-4 py-6 mt-4" data-page-node-id="xe6hEpO32kTBoHQzQnnT60">
@@ -409,63 +707,6 @@
     </div>
     
   </div>
-
-    <!-- 管理后台（隐藏入口：连续点击顶部标题 5 次） -->
-    <div id="adminPanel" class="hidden fixed inset-0 z-[200] bg-white overflow-y-auto" data-page-node-id="4A4bfkvtCminPeBkHnW4sU">
-      <div class="max-w-2xl mx-auto min-h-dvh" data-page-node-id="u8ChbEpxvwFRK7ECea1i9J">
-        <div class="sticky top-0 z-10 bg-white border-b border-divider px-4 py-3 flex items-center justify-between" data-page-node-id="V6VLU4qMuxR0k6dKGYSq3W">
-          <div data-page-node-id="CjmOeO6RiyHXVS67NfKPXi">
-            <h2 class="font-bold text-text text-lg" data-page-node-id="pdGwCUyr5au4Hl967XGWgr">维修师傅管理后台</h2>
-            <p class="text-xs text-text-muted" data-page-node-id="bKtwckcJQIRWcGYorjTXTA">数据保存在本机浏览器，可导出备份 / 分享</p>
-          </div>
-          <button id="adminCloseBtn" class="px-4 py-2 bg-chip rounded-xl text-text-secondary text-sm font-medium" data-page-node-id="GcUnMaK0PyzGou7VD43NGJ">返回</button>
-        </div>
-
-        <div class="px-4 py-4 grid grid-cols-3 gap-3" data-page-node-id="aluY2Wh2f7v7JIzlyhs4Gz">
-          <div class="bg-primary-light rounded-xl p-3 text-center" data-page-node-id="eR37fSKyLUUZijDNFCcwWY">
-            <p id="adminStatWorkers" class="text-2xl font-bold text-primary" data-page-node-id="PuYzFRJAzW2hlEqkUS9yWk">0</p>
-            <p class="text-xs text-text-secondary mt-1" data-page-node-id="Vx4fnYSZhQvulI7Tr9HMbD">师傅/联系人</p>
-          </div>
-          <div class="bg-primary-light rounded-xl p-3 text-center" data-page-node-id="XdMw26y1Qy8fWTAUkhEFp8">
-            <p id="adminStatCovered" class="text-2xl font-bold text-primary" data-page-node-id="lTTgki0I2PB66tgYTKqowo">0</p>
-            <p class="text-xs text-text-secondary mt-1" data-page-node-id="lx03M44rr4djCTKe7trx4B">覆盖小区</p>
-          </div>
-          <div class="bg-primary-light rounded-xl p-3 text-center" data-page-node-id="l7FXsqBYIa0YQTc2kxub85">
-            <p id="adminStatCommunities" class="text-2xl font-bold text-primary" data-page-node-id="yZy6ZYwcaQIS0u2vlGfiEX">0</p>
-            <p class="text-xs text-text-secondary mt-1" data-page-node-id="iHupVMNIbBAV97frJ7sAAQ">全部小区</p>
-          </div>
-        </div>
-
-        <div class="px-4 pb-2" data-page-node-id="FfUtaPtKkSarm62sE12vbx">
-          <button id="adminAddBtn" class="w-full py-3 bg-primary text-white rounded-xl font-medium text-sm shadow-sm" data-page-node-id="iv2DjHWUtPfyZOPfssFTOv">＋ 添加维修师傅 / 联系人</button>
-        </div>
-
-        <div class="px-4 py-2" data-page-node-id="P8Xqy8Z0DmYIeNrnEWiFp5">
-          <input id="adminSearchInput" class="search-input w-full px-4 py-2.5 bg-chip rounded-xl border border-divider text-sm" placeholder="搜索师傅姓名 / 电话 / 小区" data-page-node-id="ljRUSCGhaRS0b09PCYWaYj">
-        </div>
-
-        <div id="adminWorkerList" class="px-4 py-2 pb-6" data-page-node-id="UOoU2fe99QYwSXQdMusiww"></div>
-
-        <div class="px-4 py-6 bg-chip mt-4 mb-8" data-page-node-id="JeJQW69nh9hikVeVmpCtlr">
-          <h3 class="font-medium text-text text-sm mb-3" data-page-node-id="yYIWFjVpfJh017vvq362K7">数据管理</h3>
-          <div class="grid grid-cols-2 gap-2 mb-3" data-page-node-id="d20wtZZUERj7wrP0vPPa5h">
-            <button id="adminExportJson" class="py-2.5 bg-white border border-divider rounded-xl text-sm text-text-secondary" data-page-node-id="KExrM24IYp4rENnJA2oUsc">导出数据 (JSON)</button>
-            <button id="adminExportHtml" class="py-2.5 bg-white border border-divider rounded-xl text-sm text-text-secondary" data-page-node-id="vCiBLawaWKrN8zCpXjqtUH">导出完整页面 (HTML)</button>
-          </div>
-          <div class="grid grid-cols-2 gap-2" data-page-node-id="PWX58En72ybvgSIoF1m2r3">
-            <button id="adminImportJson" class="py-2.5 bg-white border border-divider rounded-xl text-sm text-text-secondary" data-page-node-id="QwKXsDD1mXAnXDf6iFgnNh">导入数据</button>
-            <button id="adminRestoreBtn" class="py-2.5 bg-white border border-red-200 rounded-xl text-sm text-red-500" data-page-node-id="UbyFUjvV0nPOq3lk9tUEsv">恢复默认数据</button>
-          </div>
-          <input type="file" id="adminImportFile" accept=".json,application/json" class="hidden" data-page-node-id="evDDHmbw6SoWOj080oN9Ij">
-          <p class="text-xs text-text-muted mt-3 leading-relaxed" data-page-node-id="D8DGtDoXv3tgwx3wBjJpne">
-            导出 HTML：把当前数据打包成一个可独立使用的新页面（自带后台），可分享给同事部署。<br data-page-node-id="1nxtVTbygT4HoBBOYGGBR0">
-            导入数据：用备份文件覆盖当前师傅与小区关联数据。<br data-page-node-id="PNni7txOy8gSM1ef6xTj1Z">
-            恢复默认：清除本机保存的自定义数据，恢复为最初 34 个小区数据。
-          </p>
-        </div>
-      </div>
-    </div>
-
 
   <script>
     // ==========================================
@@ -1004,12 +1245,10 @@
     }
 
     // ==========================================
-    // 状态管理
+    // 状态管理（V2：地图常驻，仅维护当前详情小区）
     // ==========================================
-    let currentDistrict = '全部';
-    let searchKeyword = '';
-    let collapsedDistricts = new Set();
-    let highlightedCommunityId = null;
+    let currentDetailCommunityId = null;
+    let locatedCommunityId = null;
 
     // ==========================================
     // 联系方式解析
@@ -1121,244 +1360,6 @@
     }
 
     // ==========================================
-    // 行政区统计
-    // ==========================================
-    function getDistrictStats() {
-      const stats = {};
-      COMMUNITIES.forEach(c => {
-        if (!stats[c.district]) {
-          stats[c.district] = 0;
-        }
-        stats[c.district]++;
-      });
-      return stats;
-    }
-
-    // 获取所有行政区（按小区数量排序）
-    function getDistricts() {
-      const stats = getDistrictStats();
-      const districts = Object.keys(stats);
-      // 按小区数量降序排列
-      districts.sort((a, b) => stats[b] - stats[a]);
-      return districts;
-    }
-
-    // ==========================================
-    // 筛选小区
-    // ==========================================
-    function filterCommunities() {
-      let filtered = COMMUNITIES;
-
-      // 按行政区筛选
-      if (currentDistrict !== '全部') {
-        filtered = filtered.filter(c => c.district === currentDistrict);
-      }
-
-      // 按关键词搜索（小区名/地址/师傅姓名/电话/微信/服务范围）
-      if (searchKeyword) {
-        const kw = searchKeyword.toLowerCase();
-        filtered = filtered.filter(c => {
-          if (c.name.toLowerCase().includes(kw) || c.address.toLowerCase().includes(kw)) return true;
-          const w = c.workerId ? getWorkerById(c.workerId) : null;
-          if (w) {
-            if ((w.name || '').toLowerCase().includes(kw)) return true;
-            if ((w.phone || '').toLowerCase().includes(kw)) return true;
-            if ((w.wechatId || '').toLowerCase().includes(kw)) return true;
-            if ((w.skills || []).some(s => String(s).toLowerCase().includes(kw))) return true;
-          }
-          return false;
-        });
-      }
-
-      return filtered;
-    }
-
-    // 按行政区分组
-    function groupByDistrict(communities) {
-      const groups = {};
-      communities.forEach(c => {
-        if (!groups[c.district]) {
-          groups[c.district] = [];
-        }
-        groups[c.district].push(c);
-      });
-      return groups;
-    }
-
-    // ==========================================
-    // 渲染行政区chips
-    // ==========================================
-    function renderChips() {
-      const container = document.getElementById('chipsContainer');
-      const stats = getDistrictStats();
-      const districts = getDistricts();
-      const totalCount = COMMUNITIES.length;
-      
-      let html = `
-        <button class="district-chip flex-shrink-0 px-3 py-1.5 rounded-full text-sm font-medium ${currentDistrict === '全部' ? 'active' : 'bg-chip text-text-secondary'}" data-district="全部">
-          全部
-          <span class="ml-1 text-xs opacity-70">${totalCount}</span>
-        </button>
-      `;
-      
-      districts.forEach(d => {
-        const isActive = currentDistrict === d;
-        html += `
-          <button class="district-chip flex-shrink-0 px-3 py-1.5 rounded-full text-sm font-medium ${isActive ? 'active' : 'bg-chip text-text-secondary'}" data-district="${d}">
-            ${d}
-            <span class="ml-1 text-xs opacity-70">${stats[d]}</span>
-          </button>
-        `;
-      });
-      
-      container.innerHTML = html;
-      
-      // 绑定点击事件
-      container.querySelectorAll('.district-chip').forEach(chip => {
-        chip.addEventListener('click', () => {
-          const district = chip.dataset.district;
-          setDistrict(district);
-        });
-      });
-    }
-
-    function setDistrict(district) {
-      currentDistrict = district;
-      // 切换筛选上下文时重置折叠状态，避免跨筛选残留（如：在鼓楼区折叠后切回全部，鼓楼区仍处于折叠）
-      collapsedDistricts.clear();
-      renderChips();
-      renderList();
-      
-      // 如果选择了某个区，滚动到该区
-      if (district !== '全部') {
-        setTimeout(() => {
-          const header = document.querySelector(`[data-district-header="${district}"]`);
-          if (header) {
-            const headerTop = header.getBoundingClientRect().top + window.scrollY - 80;
-            window.scrollTo({ top: headerTop, behavior: 'smooth' });
-          }
-        }, 100);
-      }
-    }
-
-    // ==========================================
-    // 渲染小区列表
-    // ==========================================
-    function renderList() {
-      const container = document.getElementById('communityList');
-      const emptyState = document.getElementById('emptyState');
-      const filtered = filterCommunities();
-      
-      if (filtered.length === 0) {
-        container.innerHTML = '';
-        emptyState.classList.remove('hidden');
-        return;
-      }
-      
-      emptyState.classList.add('hidden');
-      
-      const groups = groupByDistrict(filtered);
-      const districts = Object.keys(groups);
-      // 按小区数量降序
-      districts.sort((a, b) => groups[b].length - groups[a].length);
-      
-      let html = '';
-      
-      districts.forEach(district => {
-        const communities = groups[district];
-        const isCollapsed = collapsedDistricts.has(district);
-        
-        // 地区分组头部
-        html += `
-          <div class="collapse-header flex items-center justify-between py-3 mt-2" data-district-header="${district}">
-            <div class="flex items-center gap-2">
-              <svg class="collapse-icon ${isCollapsed ? 'collapsed' : ''} w-4 h-4 text-text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-              </svg>
-              <span class="font-medium text-text">${district}</span>
-            </div>
-            <span class="text-sm text-text-muted">${communities.length} 个小区</span>
-          </div>
-        `;
-        
-        // 小区卡片
-        if (!isCollapsed) {
-          communities.forEach((c, idx) => {
-            const contactInfo = getContactForCommunity(c);
-            const cardId = `${district}-${idx}`;
-            const isHighlighted = highlightedCommunityId === cardId;
-            
-            html += renderCommunityCard(c, contactInfo, cardId, isHighlighted);
-          });
-        }
-      });
-      
-      container.innerHTML = html;
-      
-      // 渲染完成后清空高亮标记，防止残留
-      highlightedCommunityId = null;
-      
-      // 绑定折叠事件
-      container.querySelectorAll('.collapse-header').forEach(header => {
-        header.addEventListener('click', () => {
-          const district = header.dataset.districtHeader;
-          if (collapsedDistricts.has(district)) {
-            collapsedDistricts.delete(district);
-          } else {
-            collapsedDistricts.add(district);
-          }
-          renderList();
-        });
-      });
-      
-      // 绑定拨号按钮事件
-      container.querySelectorAll('.call-btn').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-          e.stopPropagation();
-          const phone = btn.dataset.phone;
-          if (phone) {
-            window.location.href = `tel:${phone}`;
-          }
-        });
-      });
-      
-      // 绑定复制微信按钮事件
-      container.querySelectorAll('.copy-wechat-btn').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-          e.stopPropagation();
-          const wechatId = btn.dataset.wechat;
-          if (!wechatId) return;
-          
-          // 复制到剪贴板（navigator.clipboard 优先，降级用 textarea）
-          const copyText = () => {
-            // 尝试 navigator.clipboard API
-            if (navigator.clipboard && navigator.clipboard.writeText) {
-              navigator.clipboard.writeText(wechatId).then(() => {
-                showCopyFeedback(btn);
-              }).catch(() => {
-                // 降级方案
-                fallbackCopy(wechatId, btn);
-              });
-            } else {
-              // 降级方案
-              fallbackCopy(wechatId, btn);
-            }
-          };
-          
-          copyText();
-        });
-      });
-
-      // 绑定评价按钮事件
-      container.querySelectorAll('.review-btn').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-          e.stopPropagation();
-          openReviewModal(btn.dataset.workerId);
-        });
-      });
-    }
-
-    // ==========================================
     // 客户评价师傅（弹层）
     // ==========================================
     function openReviewModal(workerId) {
@@ -1441,7 +1442,10 @@
         localStorage.setItem(reviewedKey, '1');
         saveData();
         closeReviewModal();
-        renderList();
+        // 若当前有选中的小区详情卡，重渲染该详情（地图常驻，无列表视图）
+        if (currentDetailCommunityId) {
+          renderCommunityDetail(currentDetailCommunityId);
+        }
         // 提示成功
         const toast = document.createElement('div');
         toast.className = 'fixed left-1/2 -translate-x-1/2 bottom-16 z-[400] bg-black/80 text-white text-sm px-4 py-2.5 rounded-full';
@@ -1492,190 +1496,47 @@
       document.body.removeChild(textarea);
     }
 
-    // 渲染单个小区卡片
-    function renderCommunityCard(community, contactInfo, cardId, isHighlighted) {
-      const highlightClass = isHighlighted ? 'highlight-card' : '';
-      const skills = contactInfo.skills || [];
-      const rating = contactInfo.rating || 0;
-      const ratingNote = contactInfo.ratingNote || '';
-
-      // 服务范围标签
-      const skillsHtml = skills.length > 0 ? `
-        <div class="flex flex-wrap gap-1.5 mb-2">
-          ${skills.map(s => `<span class="tag-badge bg-chip text-text-secondary">${s}</span>`).join('')}
-        </div>
-      ` : '';
-
-      // 服务评价：平均星级（客户评价优先，回退管理员预设）+ 评价数 + 评价入口
-      const hasContact = (contactInfo.type === 'phone' || contactInfo.type === 'wechat');
-      const ratingStat = computeRating(contactInfo.workerId ? getWorkerById(contactInfo.workerId) : null);
-      const starsForDisplay = ratingStat.avg > 0 ? Math.round(ratingStat.avg) : 0;
-      const reviewBtnHtml = (contactInfo.workerId && hasContact) ? `
-        <button type="button" class="review-btn ml-2 flex-shrink-0 flex items-center gap-1 px-2.5 py-1 rounded-lg bg-amber-50 text-amber-600 text-xs font-medium border border-amber-200" data-worker-id="${contactInfo.workerId}">
-          <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.363-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-          评价
-        </button>
-      ` : '';
-      let ratingHtml = '';
-      if (starsForDisplay > 0 || ratingStat.count > 0) {
-        ratingHtml = `
-          <div class="flex items-center gap-0.5 mb-1.5">
-            ${Array.from({ length: 5 }, (_, i) => i < starsForDisplay
-              ? `<svg class="w-3.5 h-3.5 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.363-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>`
-              : `<svg class="w-3.5 h-3.5 text-gray-300" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.363-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>`
-          ).join('')}
-          <span class="text-xs text-amber-600 font-medium ml-1">${ratingStat.avg.toFixed(1)}</span>
-          <span class="text-xs text-text-muted">${ratingStat.count > 0 ? ratingStat.count + ' 条评价' : '（管理员预设）'}</span>
-          ${reviewBtnHtml}
-        </div>
-      `;
-      } else if (reviewBtnHtml) {
-        // 还没有评分：仅显示评价入口
-        ratingHtml = `
-          <div class="flex items-center mb-1.5">
-            <span class="text-xs text-text-muted">暂无评价</span>
-            ${reviewBtnHtml}
-          </div>
-        `;
-      }
-
-      let contactHtml = '';
-
-      if (contactInfo.type === 'phone') {
-        // 有电话的情况
-        contactHtml = `
-          <div class="flex items-center justify-between">
-            <div class="flex-1 min-w-0">
-              <div class="flex items-center gap-2 mb-1">
-                ${contactInfo.role ? `<span class="tag-badge bg-primary/10 text-primary font-medium">${contactInfo.role}</span>` : ''}
-                <span class="text-text font-medium text-sm truncate">${contactInfo.name || '物业联系人'}</span>
-              </div>
-              <p class="text-text-secondary text-sm">${contactInfo.phone}</p>
-            </div>
-            <button type="button" class="call-btn ml-3 flex-shrink-0 flex items-center gap-1.5 px-4 py-2 rounded-xl text-white font-medium text-sm shadow-sm" data-phone="${contactInfo.phone}">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
-              </svg>
-              拨打
-            </button>
-          </div>
-        `;
-      } else if (contactInfo.type === 'wechat') {
-        // 微信联系（无电话）
-        if (contactInfo.wechatId) {
-          // 有微信号：显示复制按钮
-          contactHtml = `
-            <div class="flex items-center justify-between">
-              <div class="flex-1 min-w-0">
-                <div class="flex items-center gap-2 mb-1">
-                  ${contactInfo.role ? `<span class="tag-badge bg-primary/10 text-primary font-medium">${contactInfo.role}</span>` : ''}
-                  <span class="text-text font-medium text-sm truncate">${contactInfo.name || '物业联系人'}</span>
-                </div>
-                <p class="text-text-secondary text-sm">${contactInfo.wechatId}</p>
-              </div>
-              <button type="button" class="copy-wechat-btn ml-3 flex-shrink-0 flex items-center gap-1.5 px-3 py-2 rounded-xl bg-blue-500 text-white font-medium text-sm shadow-sm hover:bg-blue-600 transition-colors" data-wechat="${contactInfo.wechatId}">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path>
-                </svg>
-                <span class="copy-text">复制</span>
-              </button>
-            </div>
-          `;
-        } else {
-          // 无微信号：显示姓名+角色，提示联系专员
-          contactHtml = `
-            <div class="flex items-center justify-between">
-              <div class="flex-1 min-w-0">
-                <div class="flex items-center gap-2 mb-1">
-                  ${contactInfo.role ? `<span class="tag-badge bg-primary/10 text-primary font-medium">${contactInfo.role}</span>` : ''}
-                  <span class="text-text font-medium text-sm truncate">${contactInfo.name || '物业联系人'}</span>
-                </div>
-                <p class="text-xs text-text-muted">微信联系，请联系您的宁家保服务专员</p>
-              </div>
-            </div>
-          `;
-        }
-      } else {
-        // 无联系方式
-        contactHtml = `
-          <div class="bg-gray-50 rounded-lg p-3">
-            <div class="flex items-center gap-2 text-text-muted">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-              </svg>
-              <span class="text-sm">暂无专属师傅 · 可联系物业协调</span>
-            </div>
-          </div>
-        `;
-      }
-
-      return `
-        <div class="community-card ${highlightClass} bg-card rounded-2xl p-4 mb-3 shadow-sm border border-divider" data-card-id="${cardId}">
-          <div class="mb-3">
-            <h3 class="font-bold text-text text-base mb-1">${community.name}</h3>
-            <p class="text-text-muted text-xs flex items-center gap-1">
-              <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-              </svg>
-              ${community.address}
-            </p>
-          </div>
-          <div class="flex items-center gap-2 mb-3">
-            <span class="text-xs bg-chip text-text-secondary px-2 py-1 rounded-md">${community.operator}</span>
-          </div>
-          <div class="border-t border-divider pt-3">
-            ${skillsHtml}
-            ${ratingHtml}
-            ${contactHtml}
-          </div>
-        </div>
-      `;
-    }
-
     // ==========================================
-    // 定位功能（真实 Geolocation：匹配最近行政区）
+    // 定位功能（真实 Geolocation：匹配最近小区）
     // ==========================================
-    // 南京 8 个行政区参考坐标（每区多个代表性点位，用于把经纬度归入最近行政区）
-    // 单中心点对不规则行政区边界易误判，故每区取 2~3 个地标点，匹配时取"到该区任一参考点最小距离"
-    const DISTRICT_COORDS = {
-      '玄武区': [
-        { lat: 32.0620, lng: 118.7970 }, // 玄武门
-        { lat: 32.0780, lng: 118.8180 }, // 锁金村
-        { lat: 32.0550, lng: 118.8080 }, // 北京东路
-        { lat: 32.0480, lng: 118.7920 }  // 珠江路（玄武南端）
-      ],
-      '秦淮区': [
-        { lat: 32.0430, lng: 118.7840 }, // 新街口（新街口街道属秦淮）
-        { lat: 32.0200, lng: 118.7870 }, // 夫子庙
-        { lat: 32.0060, lng: 118.7790 }  // 中华门
-      ],
-      '鼓楼区': [
-        { lat: 32.0610, lng: 118.7770 }, // 鼓楼广场
-        { lat: 32.0810, lng: 118.7580 }, // 山西路
-        { lat: 32.0720, lng: 118.7400 }  // 龙江
-      ],
-      '建邺区': [
-        { lat: 32.0120, lng: 118.7350 }, // 奥体中心
-        { lat: 32.0330, lng: 118.7430 }  // 万达江东
-      ],
-      '浦口区': [
-        { lat: 32.1040, lng: 118.7120 }, // 桥北
-        { lat: 32.0350, lng: 118.6280 }  // 江浦街道
-      ],
-      '栖霞区': [
-        { lat: 32.1150, lng: 118.9100 }, // 仙林大学城
-        { lat: 32.0970, lng: 118.8070 }  // 迈皋桥
-      ],
-      '雨花台区': [
-        { lat: 31.9940, lng: 118.7750 }, // 雨花台
-        { lat: 31.9750, lng: 118.7650 }  // 铁心桥
-      ],
-      '江宁区': [
-        { lat: 31.9530, lng: 118.8400 }, // 东山万达
-        { lat: 31.9230, lng: 118.8040 }  // 百家湖
-      ]
-    };
+    // 34 个服务小区的示意坐标（lat/lng 用于地理匹配，x/y 为 SVG 图上点位）
+    // c5 山一方位于句容宝华山，置于地图东北角示意
+    const COMMUNITY_COORDS = [
+      { id: 'c1', lat: 32.0370, lng: 118.6300, x: 62, y: 165 },
+      { id: 'c2', lat: 32.0400, lng: 118.6340, x: 70, y: 158 },
+      { id: 'c3', lat: 32.1030, lng: 118.7100, x: 115, y: 108 },
+      { id: 'c4', lat: 32.0350, lng: 118.6230, x: 55, y: 172 },
+      { id: 'c5', lat: 32.1500, lng: 119.0800, x: 345, y: 42 },
+      { id: 'c6', lat: 32.0850, lng: 118.8100, x: 240, y: 112 },
+      { id: 'c7', lat: 32.0800, lng: 118.8180, x: 252, y: 120 },
+      { id: 'c8', lat: 32.0720, lng: 118.7400, x: 168, y: 150 },
+      { id: 'c9', lat: 32.0740, lng: 118.7360, x: 160, y: 142 },
+      { id: 'c10', lat: 32.0940, lng: 118.7800, x: 198, y: 118 },
+      { id: 'c11', lat: 32.1150, lng: 118.8580, x: 270, y: 80 },
+      { id: 'c12', lat: 32.0280, lng: 118.7600, x: 128, y: 235 },
+      { id: 'c13', lat: 32.0380, lng: 118.8020, x: 205, y: 210 },
+      { id: 'c14', lat: 32.0360, lng: 118.7930, x: 225, y: 205 },
+      { id: 'c15', lat: 32.0200, lng: 118.8200, x: 240, y: 232 },
+      { id: 'c16', lat: 32.0400, lng: 118.8000, x: 218, y: 200 },
+      { id: 'c17', lat: 32.0370, lng: 118.7950, x: 210, y: 195 },
+      { id: 'c18', lat: 31.8500, lng: 118.9500, x: 318, y: 300 },
+      { id: 'c19', lat: 31.9450, lng: 118.8600, x: 305, y: 268 },
+      { id: 'c20', lat: 31.9440, lng: 118.8300, x: 288, y: 262 },
+      { id: 'c21', lat: 31.9250, lng: 118.8400, x: 278, y: 290 },
+      { id: 'c22', lat: 31.9780, lng: 118.7280, x: 128, y: 288 },
+      { id: 'c23', lat: 31.9750, lng: 118.7650, x: 150, y: 275 },
+      { id: 'c24', lat: 31.9780, lng: 118.7550, x: 142, y: 280 },
+      { id: 'c25', lat: 31.9950, lng: 118.7550, x: 135, y: 268 },
+      { id: 'c26', lat: 32.0650, lng: 118.7450, x: 150, y: 160 },
+      { id: 'c27', lat: 32.0700, lng: 118.7750, x: 185, y: 132 },
+      { id: 'c28', lat: 32.0580, lng: 118.7400, x: 170, y: 155 },
+      { id: 'c29', lat: 32.0200, lng: 118.8000, x: 245, y: 235 },
+      { id: 'c30', lat: 31.9900, lng: 118.8000, x: 230, y: 250 },
+      { id: 'c31', lat: 32.0250, lng: 118.8080, x: 252, y: 228 },
+      { id: 'c32', lat: 32.0020, lng: 118.8000, x: 222, y: 252 },
+      { id: 'c33', lat: 31.9950, lng: 118.7980, x: 216, y: 258 },
+      { id: 'c34', lat: 32.0720, lng: 118.7550, x: 168, y: 138 }
+    ];
 
     // Haversine 距离（km）
     function haversineKm(lat1, lng1, lat2, lng2) {
@@ -1688,18 +1549,15 @@
       return 2 * R * Math.asin(Math.sqrt(a));
     }
 
-    // 根据经纬度匹配最近行政区（每区取到任一参考点的最小距离）
-    function matchDistrict(lat, lng) {
+    // 根据经纬度匹配最近小区（34 个点位中取 Haversine 最小者）
+    function matchCommunity(lat, lng) {
       let best = null;
       let bestDist = Infinity;
-      Object.keys(DISTRICT_COORDS).forEach(d => {
-        const points = DISTRICT_COORDS[d];
-        points.forEach(c => {
-          const dist = haversineKm(lat, lng, c.lat, c.lng);
-          if (dist < bestDist) { bestDist = dist; best = d; }
-        });
+      COMMUNITY_COORDS.forEach(c => {
+        const dist = haversineKm(lat, lng, c.lat, c.lng);
+        if (dist < bestDist) { bestDist = dist; best = c; }
       });
-      return { district: best, distKm: bestDist };
+      return { community: best, distKm: bestDist };
     }
 
     function locateBtnLoading(btn, loading) {
@@ -1714,24 +1572,23 @@
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
         </svg>
-        定位到我所在小区
+        定位到我
       `;
     }
 
-    function locateToDistrict(district, distKm) {
+    // 定位/选中某个小区：高亮对应点位 + 展示唯一详情卡
+    function locateToCommunity(communityId, distKm) {
+      const c = COMMUNITIES.find(x => x.id === communityId);
+      if (!c) return;
+      currentDetailCommunityId = communityId;
+      locatedCommunityId = communityId;
       const resultEl = document.getElementById('locationResult');
       resultEl.textContent = distKm != null
-        ? `已为您定位到 ${district}（距参考点约 ${Math.round(distKm)} 公里）`
-        : `已为您定位到 ${district}`;
+        ? `已为您定位到「${c.name}」（距您约 ${Math.round(distKm)} 公里）`
+        : `已为您定位到「${c.name}」`;
 
-      // 高亮该区的第一个小区
-      const communities = COMMUNITIES.filter(c => c.district === district);
-      if (communities.length > 0) {
-        highlightedCommunityId = `${district}-0`;
-      }
-
-      // 切换到该区域并滚动
-      setDistrict(district);
+      highlightCommunityOnMap(communityId);
+      renderCommunityDetail(communityId);
     }
 
     function realLocate() {
@@ -1739,7 +1596,7 @@
       const btn = document.getElementById('locateBtn');
 
       if (!navigator.geolocation) {
-        resultEl.textContent = '当前浏览器不支持定位，请手动选择上方区域';
+        resultEl.textContent = '当前浏览器不支持定位，请开启定位，或直接点击地图上的小区点位';
         return;
       }
 
@@ -1749,7 +1606,7 @@
       // 超时保护（部分微信内 WebView 定位很慢或静默失败）
       const timeout = setTimeout(() => {
         locateBtnLoading(btn, false);
-        resultEl.textContent = '定位超时，请检查手机定位权限，或手动选择上方区域';
+        resultEl.textContent = '定位超时，请开启定位，或直接点击地图上的小区点位';
       }, 10000);
 
       navigator.geolocation.getCurrentPosition(
@@ -1757,16 +1614,20 @@
           clearTimeout(timeout);
           locateBtnLoading(btn, false);
           const { latitude, longitude } = pos.coords;
-          const { district, distKm } = matchDistrict(latitude, longitude);
-          locateToDistrict(district, distKm);
+          const { community, distKm } = matchCommunity(latitude, longitude);
+          if (community) {
+            locateToCommunity(community.id, distKm);
+          } else {
+            resultEl.textContent = '暂未匹配到附近小区，请直接点击地图上的小区点位查看师傅';
+          }
         },
         (err) => {
           clearTimeout(timeout);
           locateBtnLoading(btn, false);
-          // 权限拒绝 / 位置不可用 / 超时 的统一友好降级
-          let msg = '无法获取定位，请手动选择上方区域';
-          if (err && err.code === 1) msg = '未授权定位权限，请手动选择上方区域';
-          else if (err && err.code === 3) msg = '定位超时，请手动选择上方区域';
+          // 权限拒绝 / 位置不可用 / 超时 的统一友好降级（引导点击地图小区点位）
+          let msg = '无法获取定位，请开启定位，或直接点击地图上的小区点位';
+          if (err && err.code === 1) msg = '未授权定位权限，请开启定位，或直接点击地图上的小区点位';
+          else if (err && err.code === 3) msg = '定位超时，请开启定位，或直接点击地图上的小区点位';
           resultEl.textContent = msg;
         },
         { enableHighAccuracy: false, timeout: 8000, maximumAge: 30000 }
@@ -1774,49 +1635,62 @@
     }
 
     // ==========================================
-    // 搜索功能
+    // 搜索功能（输入小区名 → 唯一详情卡；无结果 → 提示）
     // ==========================================
     function initSearch() {
       const searchInput = document.getElementById('searchInput');
       const clearBtn = document.getElementById('clearSearch');
-      
+
       let debounceTimer;
-      
+
       searchInput.addEventListener('input', (e) => {
         clearTimeout(debounceTimer);
         debounceTimer = setTimeout(() => {
-          searchKeyword = e.target.value.trim();
-          // 搜索上下文变化时重置折叠状态，避免跨搜索残留折叠
-          collapsedDistricts.clear();
-          clearBtn.classList.toggle('hidden', !searchKeyword);
-          renderList();
+          const kw = e.target.value.trim();
+          clearBtn.classList.toggle('hidden', !kw);
+          if (!kw) {
+            // 清空搜索：恢复当前选中小区的详情卡或初始占位
+            if (currentDetailCommunityId) {
+              renderCommunityDetail(currentDetailCommunityId);
+            } else {
+              renderInitialPlaceholder();
+            }
+            return;
+          }
+          // 精确匹配优先，其次包含匹配（小区名或地址）
+          let matched = COMMUNITIES.filter(c => c.name === kw);
+          if (matched.length === 0) {
+            matched = COMMUNITIES.filter(c => (c.name || '').includes(kw) || (c.address || '').includes(kw));
+          }
+          if (matched.length === 1) {
+            currentDetailCommunityId = matched[0].id;
+            locatedCommunityId = matched[0].id;
+            highlightCommunityOnMap(matched[0].id);
+            renderCommunityDetail(matched[0].id);
+          } else if (matched.length > 1) {
+            highlightCommunityOnMap(null);
+            renderPrompt('找到 ' + matched.length + ' 个相关小区，请直接点击地图上的小区点位查看对应师傅');
+          } else {
+            highlightCommunityOnMap(null);
+            renderPrompt('未找到「' + kw + '」，请核对小区名，或点击地图上的小区点位查看师傅');
+          }
         }, 200);
       });
-      
+
       clearBtn.addEventListener('click', () => {
         searchInput.value = '';
-        searchKeyword = '';
-        collapsedDistricts.clear();
         clearBtn.classList.add('hidden');
-        renderList();
+        if (currentDetailCommunityId) {
+          renderCommunityDetail(currentDetailCommunityId);
+        } else {
+          renderInitialPlaceholder();
+        }
       });
     }
 
     // ==========================================
-    // 初始化
+    // 通用工具
     // ==========================================
-    // ==========================================
-    // 管理后台（隐藏入口：连续点击页面标题 5 次）
-    // ==========================================
-    const ADMIN_OPEN_CLICKS = 5;
-    const SKILL_OPTIONS = ['水电维修', '家电维修', '管道疏通', '门窗维修', '墙面翻新', '防水补漏', '开锁换锁', '其他'];
-    let adminTitleClicks = 0;
-    let adminTitleTimer = null;
-    let adminEditingWorkerId = null;
-    let adminSelectedCommunities = [];
-    let adminSkills = [];
-    let adminRating = 0;
-
     function escapeHtml(s) {
       return String(s == null ? '' : s)
         .replace(/&/g, '&amp;')
@@ -1826,406 +1700,255 @@
         .replace(/'/g, '&#39;');
     }
 
-    function downloadBlob(content, filename, mime) {
-      const blob = new Blob([content], { type: mime + ';charset=utf-8' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = filename;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      setTimeout(() => URL.revokeObjectURL(url), 1000);
+    // ==========================================
+    // 地图交互（V2：地图常驻，点位点击 → 唯一详情卡）
+    // ==========================================
+
+    // 高亮地图上的指定小区点位（null 清空全部）
+    function highlightCommunityOnMap(communityId) {
+      document.querySelectorAll('.nj-community-point').forEach(point => {
+        const isActive = !!communityId && point.dataset.commId === communityId;
+        point.classList.toggle('located', isActive);
+        point.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+      });
     }
 
-    function todayStr() {
-      const d = new Date();
-      return d.getFullYear() + String(d.getMonth() + 1).padStart(2, '0') + String(d.getDate()).padStart(2, '0');
-    }
-
-    // 隐藏入口：连续点击标题 5 次打开后台
-    function bindAdminEntry() {
-      const titleEl = document.querySelector('.sticky-header h1');
-      if (!titleEl) return;
-      titleEl.addEventListener('click', () => {
-        adminTitleClicks++;
-        clearTimeout(adminTitleTimer);
-        adminTitleTimer = setTimeout(() => { adminTitleClicks = 0; }, 2000);
-        if (adminTitleClicks >= ADMIN_OPEN_CLICKS) {
-          adminTitleClicks = 0;
-          openAdmin();
+    // 应用小区点位的"有师傅/招募中"视觉状态（绿点=有师傅，灰点=招募中）
+    function applyCommunityPointRichState() {
+      const index = {};
+      COMMUNITIES.forEach(c => { index[c.id] = c; });
+      document.querySelectorAll('.nj-community-point').forEach(point => {
+        const c = point.dataset.commId ? index[point.dataset.commId] : null;
+        let hasWorker = false;
+        if (c) {
+          if (c.workerId && getWorkerById(c.workerId)) {
+            hasWorker = true;
+          } else if (c.contact) {
+            const p = parseContact(c.contact);
+            hasWorker = !!(p.phone || p.wechatId || p.name);
+          }
         }
+        point.classList.toggle('rich', hasWorker);
       });
     }
 
-    function openAdmin() {
-      document.getElementById('adminPanel').classList.remove('hidden');
-      document.body.style.overflow = 'hidden';
-      document.getElementById('adminSearchInput').value = '';
-      renderAdmin();
-    }
-
-    function closeAdmin() {
-      document.getElementById('adminPanel').classList.add('hidden');
-      document.body.style.overflow = '';
-    }
-
-    function renderAdmin() {
-      renderAdminStats();
-      renderAdminWorkerList();
-    }
-
-    function renderAdminStats() {
-      const covered = COMMUNITIES.filter(c => c.workerId && getWorkerById(c.workerId)).length;
-      document.getElementById('adminStatWorkers').textContent = WORKERS.length;
-      document.getElementById('adminStatCovered').textContent = covered;
-      document.getElementById('adminStatCommunities').textContent = COMMUNITIES.length;
-    }
-
-    function renderAdminWorkerList() {
-      const container = document.getElementById('adminWorkerList');
-      const kw = (document.getElementById('adminSearchInput').value || '').trim().toLowerCase();
-      let workers = WORKERS;
-      if (kw) {
-        workers = workers.filter(w => {
-          const cNames = (w.communities || []).map(cid => {
-            const c = COMMUNITIES.find(x => x.id === cid);
-            return c ? c.name : '';
-          }).join(' ');
-          return (w.name || '').toLowerCase().includes(kw)
-            || (w.phone || '').toLowerCase().includes(kw)
-            || (w.wechatId || '').toLowerCase().includes(kw)
-            || cNames.toLowerCase().includes(kw)
-            || (w.role || '').toLowerCase().includes(kw)
-            || (w.skills || []).join(' ').toLowerCase().includes(kw);
-        });
-      }
-      if (workers.length === 0) {
-        container.innerHTML = '<div class="text-center py-10 text-text-muted text-sm">暂无匹配的师傅，点击上方按钮添加</div>';
-        return;
-      }
-      container.innerHTML = workers.map(w => {
-        const communities = (w.communities || []).map(cid => {
-          const c = COMMUNITIES.find(x => x.id === cid);
-          return c ? c.name : '';
-        }).filter(Boolean);
-        const contactTxt = w.phone ? escapeHtml(w.phone) : (w.wechatId ? '微信: ' + escapeHtml(w.wechatId) : '<span class="text-red-400">无联系方式</span>');
-        return `
-          <div class="bg-white border border-divider rounded-xl p-4 mb-3 shadow-sm" data-worker-id="${escapeHtml(w.id)}">
-            <div class="flex items-start justify-between mb-2">
-              <div class="flex items-center gap-2 flex-wrap">
-                <span class="font-medium text-text text-sm">${escapeHtml(w.name)}</span>
-                <span class="tag-badge bg-primary/10 text-primary">${escapeHtml(w.role || '物业联系人')}</span>
-                ${w.rating > 0 ? `<span class="tag-badge bg-amber-50 text-amber-600">★ ${w.rating}</span>` : ''}
-              </div>
-              <div class="flex gap-2 flex-shrink-0">
-                <button data-act="edit" data-id="${escapeHtml(w.id)}" class="px-3 py-1.5 bg-chip rounded-lg text-xs text-text-secondary">编辑</button>
-                <button data-act="del" data-id="${escapeHtml(w.id)}" class="px-3 py-1.5 bg-red-50 rounded-lg text-xs text-red-500">删除</button>
-              </div>
-            </div>
-            <p class="text-sm text-text-secondary mb-1">${contactTxt}</p>
-            ${(w.skills && w.skills.length) ? `<p class="text-xs text-text-muted mb-1">服务范围：${w.skills.map(escapeHtml).join(' / ')}</p>` : ''}
-            ${communities.length ? `<p class="text-xs text-text-muted">服务小区：${communities.map(escapeHtml).join('、')}</p>` : '<p class="text-xs text-red-400">未关联小区</p>'}
-            ${w.note ? `<p class="text-xs text-text-muted mt-1">备注：${escapeHtml(w.note)}</p>` : ''}
+    // 详情卡占位（等待定位 / 清空选择）
+    function renderInitialPlaceholder() {
+      const detailContent = document.getElementById('detailContent');
+      if (!detailContent) return;
+      detailContent.innerHTML = `
+        <div class="bg-card rounded-2xl p-6 text-center shadow-sm border border-divider view-fade">
+          <div class="mx-auto w-12 h-12 flex items-center justify-center rounded-full bg-primary/10 mb-3">
+            <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
           </div>
-        `;
-      }).join('');
-
-      container.querySelectorAll('[data-act]').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const id = btn.dataset.id;
-          if (btn.dataset.act === 'edit') openWorkerForm(id);
-          else if (btn.dataset.act === 'del') deleteWorker(id);
-        });
-      });
+          <p class="text-text font-medium mb-1">正在为您定位最近小区</p>
+          <p class="text-text-muted text-sm leading-relaxed">定位成功后，将在此展示离您最近小区的专属维修师傅；也可以直接点击地图上的小区点位查看。</p>
+        </div>
+      `;
     }
 
-    function deleteWorker(id) {
-      const w = WORKERS.find(x => x.id === id);
-      if (!w) return;
-      if (!confirm('确定删除师傅「' + w.name + '」吗？\n该师傅负责的小区将变为「暂无专属师傅」。')) return;
-      WORKERS = WORKERS.filter(x => x.id !== id);
-      COMMUNITIES.forEach(c => { if (c.workerId === id) c.workerId = null; });
-      saveData();
-      renderAdmin();
-      renderChips();
-      renderList();
+    // 详情卡提示（定位失败 / 搜索无结果 / 点击空白）
+    function renderPrompt(msg) {
+      const detailContent = document.getElementById('detailContent');
+      if (!detailContent) return;
+      detailContent.innerHTML = `
+        <div class="bg-card rounded-2xl p-6 text-center shadow-sm border border-divider view-fade">
+          <div class="mx-auto w-10 h-10 flex items-center justify-center rounded-full bg-amber-50 mb-3">
+            <svg class="w-5 h-5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+          </div>
+          <p class="text-text text-sm leading-relaxed">${escapeHtml(msg)}</p>
+        </div>
+      `;
     }
 
-    // 表单（新增 / 编辑）
-    function openWorkerForm(workerId) {
-      const w = workerId ? WORKERS.find(x => x.id === workerId) : null;
-      adminEditingWorkerId = workerId || null;
-      adminSelectedCommunities = w ? [...(w.communities || [])] : [];
-      adminSkills = w ? [...(w.skills || [])] : [];
-      adminRating = w ? (w.rating || 0) : 0;
+    // 小区详情卡：完整师傅联系方式（拨打/微信/评分/评价）
+    function renderCommunityDetail(communityId) {
+      const c = COMMUNITIES.find(x => x.id === communityId);
+      if (!c) return;
+      currentDetailCommunityId = communityId;
+      const contactInfo = getContactForCommunity(c);
+      const w = contactInfo.workerId ? getWorkerById(contactInfo.workerId) : null;
+      const hasWorkerContact = !!w || !!contactInfo.phone || !!contactInfo.wechatId;
+      const ratingStat = computeRating(w);
+      const starsForDisplay = ratingStat.avg > 0 ? Math.round(ratingStat.avg) : 0;
 
-      const formHtml = `
-        <div id="adminFormModal" class="fixed inset-0 z-[300] bg-black/40 flex items-end sm:items-center justify-center">
-          <div class="bg-white w-full max-w-2xl rounded-t-2xl sm:rounded-2xl max-h-[90dvh] overflow-y-auto">
-            <div class="sticky top-0 bg-white px-5 py-4 border-b border-divider flex items-center justify-between">
-              <h3 class="font-bold text-text">${w ? '编辑师傅' : '添加师傅'}</h3>
-              <button id="adminFormClose" class="w-8 h-8 flex items-center justify-center bg-chip rounded-full text-text-secondary text-sm">✕</button>
-            </div>
-            <div class="p-5">
-              <div class="mb-4">
-                <label class="block text-sm text-text font-medium mb-1.5">姓名 <span class="text-red-500">*</span></label>
-                <input id="fName" class="search-input w-full px-4 py-2.5 bg-chip rounded-xl border border-divider text-sm" placeholder="如：张师傅" value="${w ? escapeHtml(w.name) : ''}">
-              </div>
-              <div class="mb-4">
-                <label class="block text-sm text-text font-medium mb-1.5">身份角色</label>
-                <select id="fRole" class="search-input w-full px-4 py-2.5 bg-chip rounded-xl border border-divider text-sm">
-                  ${['维修师傅', '物业负责人', '物业联系人'].map(r => `<option value="${r}" ${w && w.role === r ? 'selected' : ''}>${r}</option>`).join('')}
-                </select>
-              </div>
-              <div class="mb-4">
-                <label class="block text-sm text-text font-medium mb-1.5">联系电话（11 位手机号，可选）</label>
-                <input id="fPhone" type="tel" maxlength="11" class="search-input w-full px-4 py-2.5 bg-chip rounded-xl border border-divider text-sm" placeholder="138xxxx5678" value="${w ? escapeHtml(w.phone || '') : ''}">
-              </div>
-              <div class="mb-4">
-                <label class="block text-sm text-text font-medium mb-1.5">微信号（可选）</label>
-                <input id="fWechat" class="search-input w-full px-4 py-2.5 bg-chip rounded-xl border border-divider text-sm" placeholder="微信号 / wxid_xxx" value="${w ? escapeHtml(w.wechatId || '') : ''}">
-                <p class="text-xs text-text-muted mt-1">电话和微信号至少填一项，客户才能联系到师傅</p>
-              </div>
-              <div class="mb-4">
-                <label class="block text-sm text-text font-medium mb-1.5">服务范围（可多选）</label>
-                <div class="flex flex-wrap gap-2">
-                  ${SKILL_OPTIONS.map(s => `
-                    <button type="button" data-skill="${s}" class="skill-chip px-3 py-1.5 rounded-full text-xs font-medium border ${adminSkills.includes(s) ? 'bg-primary text-white border-primary' : 'bg-chip text-text-secondary border-transparent'}">${s}</button>
-                  `).join('')}
-                </div>
-              </div>
-              <div class="mb-4">
-                <label class="block text-sm text-text font-medium mb-1.5">服务小区（可多选）</label>
-                <input id="fCommSearch" class="search-input w-full px-4 py-2.5 bg-chip rounded-xl border border-divider text-sm mb-2" placeholder="搜索小区名">
-                <div id="fCommList" class="max-h-56 overflow-y-auto bg-chip rounded-xl p-3">
-                  ${buildCommCheckboxes('')}
-                </div>
-              </div>
-              <div class="mb-4">
-                <label class="block text-sm text-text font-medium mb-1.5">服务评价（1-5 星，可选）</label>
-                <div class="flex items-center gap-2">
-                  <div id="fRatingStars" class="flex gap-1">
-                    ${Array.from({ length: 5 }, (_, i) => `
-                      <button type="button" data-star="${i + 1}" class="star-btn ${adminRating >= i + 1 ? 'text-amber-400' : 'text-gray-300'}">
-                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.363-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-                      </button>
-                    `).join('')}
-                  </div>
-                  <input id="fRatingNote" class="flex-1 search-input px-3 py-2 bg-chip rounded-lg border border-divider text-xs" placeholder="评价说明（可选）" value="${w ? escapeHtml(w.ratingNote || '') : ''}">
-                </div>
-              </div>
-              <div class="mb-5">
-                <label class="block text-sm text-text font-medium mb-1.5">备注（可选）</label>
-                <textarea id="fNote" rows="2" class="search-input w-full px-4 py-2.5 bg-chip rounded-xl border border-divider text-sm" placeholder="如：擅长水电、上门时间等">${w ? escapeHtml(w.note || '') : ''}</textarea>
-              </div>
-              <div class="flex gap-3">
-                <button id="adminFormCancel" class="flex-1 py-3 bg-chip rounded-xl text-text-secondary text-sm font-medium">取消</button>
-                <button id="adminFormSave" class="flex-1 py-3 bg-primary text-white rounded-xl text-sm font-medium">保存</button>
-              </div>
-            </div>
+      const STAR_FILLED = '<svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.363-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>';
+      const STAR_EMPTY = '<svg class="w-4 h-4 text-gray-300" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.363-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>';
+
+      let html = '';
+
+      // 小区信息卡
+      html += `
+        <div class="bg-card rounded-2xl p-4 mb-3 shadow-sm border border-divider">
+          <h3 class="font-bold text-text text-lg mb-1">${escapeHtml(c.name)}</h3>
+          <p class="text-text-muted text-xs flex items-center gap-1 mb-3">
+            <svg class="w-3 h-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+            ${escapeHtml(c.address)}
+          </p>
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="text-xs bg-chip text-text-secondary px-2 py-1 rounded-md">${escapeHtml(c.operator || '')}</span>
+            <span class="text-xs bg-chip text-text-secondary px-2 py-1 rounded-md">${escapeHtml(c.district || '')}</span>
           </div>
         </div>
       `;
-      document.body.insertAdjacentHTML('beforeend', formHtml);
 
-      document.getElementById('adminFormClose').addEventListener('click', closeFormModal);
-      document.getElementById('adminFormCancel').addEventListener('click', closeFormModal);
-      document.getElementById('adminFormSave').addEventListener('click', saveWorkerForm);
-      document.getElementById('fCommSearch').addEventListener('input', (e) => {
-        document.getElementById('fCommList').innerHTML = buildCommCheckboxes(e.target.value.trim());
-        bindCommCheckboxes();
-      });
-      document.querySelectorAll('#adminFormModal .skill-chip').forEach(chip => {
-        chip.addEventListener('click', () => {
-          const s = chip.dataset.skill;
-          const idx = adminSkills.indexOf(s);
-          if (idx >= 0) adminSkills.splice(idx, 1); else adminSkills.push(s);
-          const on = adminSkills.includes(s);
-          chip.classList.toggle('bg-primary', on);
-          chip.classList.toggle('text-white', on);
-          chip.classList.toggle('border-primary', on);
-          chip.classList.toggle('bg-chip', !on);
-          chip.classList.toggle('text-text-secondary', !on);
-        });
-      });
-      bindCommCheckboxes();
-      bindStarBtns();
-    }
+      if (!hasWorkerContact) {
+        // 无师傅/无联系方式：招募中 + 微信专员兜底（永不空白）
+        html += `
+          <div class="bg-amber-50 rounded-2xl p-4 mb-3 border border-amber-100">
+            <div class="flex items-center gap-2 mb-2">
+              <svg class="w-5 h-5 text-amber-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 10v11M3 7l9-4 9 4M9 10V7h6v3"></path></svg>
+              <span class="text-amber-700 font-medium text-sm">本小区专属师傅招募中</span>
+            </div>
+            <p class="text-amber-700/80 text-xs leading-relaxed mb-3">该小区暂未入驻专属维修师傅。您可以先联系小区物业协调维修，或添加微信专员获取支持。</p>
+            <p class="text-amber-700/80 text-xs leading-relaxed mb-3">微信专员：请私信「宁家保」公众号或在业主群内联系您的宁家保服务专员。</p>
+            <button type="button" id="detailBackToMapBtn" class="w-full py-2.5 bg-white border border-amber-200 rounded-xl text-amber-700 text-sm font-medium">返回地图看看其他小区</button>
+          </div>
+        `;
+      } else {
+        // 有专属师傅：完整联系信息
+        const skillsHtml = (contactInfo.skills && contactInfo.skills.length > 0) ? `
+          <div class="flex flex-wrap gap-1.5 mb-3">
+            ${contactInfo.skills.map(s => `<span class="tag-badge bg-chip text-text-secondary">${escapeHtml(String(s))}</span>`).join('')}
+          </div>
+        ` : '<p class="text-text-muted text-xs mb-3">未填写服务范围，可电话咨询</p>';
 
-    function buildCommCheckboxes(kw) {
-      const keyword = (kw || '').toLowerCase();
-      const districts = {};
-      COMMUNITIES.forEach(c => {
-        if (keyword && !c.name.toLowerCase().includes(keyword)) return;
-        if (!districts[c.district]) districts[c.district] = [];
-        districts[c.district].push(c);
-      });
-      let html = '';
-      Object.keys(districts).forEach(d => {
-        html += '<div class="text-xs font-medium text-text-secondary mb-1.5 mt-2">' + escapeHtml(d) + '</div>';
-        districts[d].forEach(c => {
-          const checked = adminSelectedCommunities.includes(c.id);
-          html += `<label class="flex items-center gap-2 py-1.5 text-sm cursor-pointer ${checked ? 'text-primary' : 'text-text'}">
-            <input type="checkbox" data-comm-id="${escapeHtml(c.id)}" ${checked ? 'checked' : ''} class="w-4 h-4 accent-[#E85D2F]"> ${escapeHtml(c.name)}
-          </label>`;
-        });
-      });
-      if (!html) html = '<div class="text-center py-4 text-xs text-text-muted">无匹配小区</div>';
-      return html;
-    }
+        const callBtnHtml = contactInfo.phone ? `
+          <a href="tel:${escapeHtml(contactInfo.phone)}" class="flex-1 flex items-center justify-center gap-2 py-3 bg-primary text-white rounded-xl font-medium text-sm shadow-sm">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+            拨打
+          </a>
+        ` : '';
+        const wechatBtnHtml = contactInfo.wechatId ? `
+          <button type="button" class="copy-wechat-btn flex-1 flex items-center justify-center gap-2 py-3 bg-blue-500 text-white rounded-xl font-medium text-sm shadow-sm hover:bg-blue-600 transition-colors" data-wechat="${escapeHtml(contactInfo.wechatId)}">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+            <span class="copy-text">复制微信号</span>
+          </button>
+        ` : '';
 
-    function bindCommCheckboxes() {
-      document.querySelectorAll('#fCommList input[type="checkbox"]').forEach(cb => {
-        cb.addEventListener('change', () => {
-          const id = cb.dataset.commId;
-          const idx = adminSelectedCommunities.indexOf(id);
-          if (cb.checked && idx < 0) adminSelectedCommunities.push(id);
-          if (!cb.checked && idx >= 0) adminSelectedCommunities.splice(idx, 1);
-        });
-      });
-    }
+        let ratingHtml = '';
+        if (starsForDisplay > 0 || ratingStat.count > 0) {
+          ratingHtml = `
+            <div class="flex items-center gap-0.5 mb-1">
+              ${Array.from({ length: 5 }, (_, i) => i < starsForDisplay ? STAR_FILLED : STAR_EMPTY).join('')}
+              <span class="text-xs text-amber-600 font-medium ml-1">${ratingStat.avg.toFixed(1)}</span>
+              <span class="text-xs text-text-muted">${ratingStat.count > 0 ? ratingStat.count + ' 条评价' : '（管理员预设）'}</span>
+            </div>
+          `;
+        } else {
+          ratingHtml = '<p class="text-xs text-text-muted mb-1">暂无评价</p>';
+        }
 
-    function bindStarBtns() {
-      document.querySelectorAll('#fRatingStars .star-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-          adminRating = parseInt(btn.dataset.star, 10);
-          document.querySelectorAll('#fRatingStars .star-btn').forEach((b, i) => {
-            if (i < adminRating) {
-              b.classList.add('text-amber-400');
-              b.classList.remove('text-gray-300');
-            } else {
-              b.classList.remove('text-amber-400');
-              b.classList.add('text-gray-300');
-            }
+        html += `
+          <div class="bg-card rounded-2xl p-4 mb-3 shadow-sm border border-divider">
+            <div class="flex items-center gap-2 mb-2">
+              ${contactInfo.role ? `<span class="tag-badge bg-primary/10 text-primary font-medium">${escapeHtml(contactInfo.role)}</span>` : ''}
+              <span class="font-bold text-text text-base">${escapeHtml(w ? (w.name || '物业联系人') : (contactInfo.name || '物业联系人'))}</span>
+            </div>
+            ${skillsHtml}
+            ${ratingHtml}
+            <button type="button" class="review-btn mb-3 inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-amber-50 text-amber-600 text-xs font-medium border border-amber-200" data-worker-id="${escapeHtml(contactInfo.workerId || '')}">
+              <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.363-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              评价
+            </button>
+            <div class="border-t border-divider pt-3">
+              <div class="flex items-center justify-between text-sm mb-1.5">
+                <span class="text-text-secondary">联系电话</span>
+                <span class="text-text font-medium">${escapeHtml(contactInfo.phone || '—')}</span>
+              </div>
+              <div class="flex items-center justify-between text-sm mb-3">
+                <span class="text-text-secondary">微信号</span>
+                <span class="text-text font-medium">${escapeHtml(contactInfo.wechatId || '—')}</span>
+              </div>
+              ${(callBtnHtml || wechatBtnHtml) ? `<div class="flex gap-3">${callBtnHtml}${wechatBtnHtml}</div>` : ''}
+              ${contactInfo.note ? `<p class="text-xs text-text-muted mt-2 leading-relaxed">${escapeHtml(contactInfo.note)}</p>` : ''}
+            </div>
+          </div>
+        `;
+      }
+
+      const detailContent = document.getElementById('detailContent');
+      if (detailContent) {
+        detailContent.innerHTML = html;
+        // 绑定详情内的复制微信
+        detailContent.querySelectorAll('.copy-wechat-btn').forEach(btn => bindWechatCopy(btn));
+        // 绑定详情内的评价按钮
+        detailContent.querySelectorAll('.review-btn').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            openReviewModal(btn.dataset.workerId);
           });
         });
-      });
-    }
-
-    function closeFormModal() {
-      const modal = document.getElementById('adminFormModal');
-      if (modal) modal.remove();
-    }
-
-    function saveWorkerForm() {
-      const name = document.getElementById('fName').value.trim();
-      const role = document.getElementById('fRole').value;
-      const phone = document.getElementById('fPhone').value.trim();
-      const wechatId = document.getElementById('fWechat').value.trim();
-      const note = document.getElementById('fNote').value.trim();
-      const ratingNote = document.getElementById('fRatingNote').value.trim();
-
-      if (!name) { alert('请填写姓名'); return; }
-      if (!phone && !wechatId) { alert('电话和微信号至少填一项'); return; }
-      if (phone && !/^1\d{10}$/.test(phone)) { alert('请输入正确的 11 位手机号'); return; }
-
-      const w = {
-        id: adminEditingWorkerId || ('w' + Date.now()),
-        name: name,
-        role: role,
-        phone: phone,
-        wechatId: wechatId,
-        skills: [...adminSkills],
-        district: adminSelectedCommunities.length ? ((COMMUNITIES.find(c => c.id === adminSelectedCommunities[0]) || {}).district || '') : '',
-        communities: [...adminSelectedCommunities],
-        note: note,
-        rating: adminRating || 0,
-        ratingNote: ratingNote,
-        // 编辑时保留已有的客户评价，不因改资料而丢失
-        reviews: adminEditingWorkerId ? ((WORKERS.find(x => x.id === adminEditingWorkerId) || {}).reviews || []) : []
-      };
-
-      if (adminEditingWorkerId) {
-        const idx = WORKERS.findIndex(x => x.id === adminEditingWorkerId);
-        if (idx >= 0) WORKERS[idx] = w;
-      } else {
-        WORKERS.push(w);
+        // 招募卡片的"返回地图看看其他小区"：清除当前选择，回到占位并滚动到地图
+        const backBtn = detailContent.querySelector('#detailBackToMapBtn');
+        if (backBtn) backBtn.addEventListener('click', () => {
+          currentDetailCommunityId = null;
+          locatedCommunityId = null;
+          highlightCommunityOnMap(null);
+          renderInitialPlaceholder();
+          const mapEl = document.getElementById('viewMap');
+          if (mapEl) mapEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
       }
-
-      // 更新关联：旧小区解除关联，新选中小区关联到该师傅
-      if (adminEditingWorkerId) {
-        COMMUNITIES.forEach(c => { if (c.workerId === adminEditingWorkerId) c.workerId = null; });
-      }
-      adminSelectedCommunities.forEach(cid => {
-        const c = COMMUNITIES.find(x => x.id === cid);
-        if (c) c.workerId = w.id;
-      });
-
-      saveData();
-      closeFormModal();
-      renderAdmin();
-      renderChips();
-      renderList();
     }
 
-    // 数据管理：导出 / 导入 / 恢复默认
-    function exportJSON() {
-      const payload = {
-        exportedAt: new Date().toISOString(),
-        workers: WORKERS,
-        communities: COMMUNITIES
-      };
-      downloadBlob(JSON.stringify(payload, null, 2), 'repair-workers-' + todayStr() + '.json', 'application/json');
-    }
-
-    function exportFullHTML() {
-      // 克隆 DOM 并清理预览注入的属性
-      const clone = document.documentElement.cloneNode(true);
-      clone.querySelectorAll('[data-page-node-id]').forEach(el => el.removeAttribute('data-page-node-id'));
-      let html = '<!DOCTYPE html>\n' + clone.outerHTML;
-      const wJson = JSON.stringify(WORKERS, null, 2);
-      const cJson = JSON.stringify(COMMUNITIES, null, 2);
-      html = html.replace(/const DEFAULT_WORKERS = \[[\s\S]*?\/\/ WORKERS_END/, 'const DEFAULT_WORKERS = ' + wJson + ';\n    // WORKERS_END');
-      html = html.replace(/const DEFAULT_COMMUNITIES = \[[\s\S]*?\/\/ COMMUNITIES_END/, 'const DEFAULT_COMMUNITIES = ' + cJson + ';\n    // COMMUNITIES_END');
-      downloadBlob(html, 'repair-h5-' + todayStr() + '.html', 'text/html');
-    }
-
-    function importJSON(file) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        try {
-          const data = JSON.parse(e.target.result);
-          if (!data || !Array.isArray(data.workers) || !Array.isArray(data.communities)) {
-            throw new Error('文件格式不正确，应为 { workers: [...], communities: [...] }');
+    // 复制微信（navigator.clipboard 优先，降级用 textarea）
+    function bindWechatCopy(btn) {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const wechatId = btn.dataset.wechat;
+        if (!wechatId) return;
+        const copyText = () => {
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(wechatId).then(() => {
+              showCopyFeedback(btn);
+            }).catch(() => {
+              fallbackCopy(wechatId, btn);
+            });
+          } else {
+            fallbackCopy(wechatId, btn);
           }
-          WORKERS = data.workers;
-          COMMUNITIES = data.communities;
-          saveData();
-          renderAdmin();
-          renderChips();
-          renderList();
-          alert('导入成功，共 ' + WORKERS.length + ' 位师傅、' + COMMUNITIES.length + ' 个小区');
-        } catch (err) {
-          alert('导入失败：' + err.message);
-        }
-      };
-      reader.readAsText(file);
-    }
-
-    function restoreDefaults() {
-      if (!confirm('确定恢复默认数据吗？将清除本机保存的所有自定义师傅数据。')) return;
-      localStorage.removeItem(STORAGE_KEYS.workers);
-      localStorage.removeItem(STORAGE_KEYS.communities);
-      loadData();
-      renderAdmin();
-      renderChips();
-      renderList();
-    }
-
-    function initAdmin() {
-      document.getElementById('adminCloseBtn').addEventListener('click', closeAdmin);
-      document.getElementById('adminAddBtn').addEventListener('click', () => openWorkerForm(null));
-      document.getElementById('adminExportJson').addEventListener('click', exportJSON);
-      document.getElementById('adminExportHtml').addEventListener('click', exportFullHTML);
-      document.getElementById('adminImportJson').addEventListener('click', () => document.getElementById('adminImportFile').click());
-      document.getElementById('adminImportFile').addEventListener('change', (e) => {
-        if (e.target.files[0]) importJSON(e.target.files[0]);
-        e.target.value = '';
+        };
+        copyText();
       });
-      document.getElementById('adminRestoreBtn').addEventListener('click', restoreDefaults);
-      document.getElementById('adminSearchInput').addEventListener('input', () => renderAdminWorkerList());
-      bindAdminEntry();
+    }
+
+    // 初始化地图交互（V2：绑定 34 个小区点位 → 唯一详情卡；空白/区点击 → 提示）
+    function initMapView() {
+      // 小区点位点击 + 键盘可达性
+      document.querySelectorAll('.nj-community-point').forEach(point => {
+        const openCommunity = () => {
+          const commId = point.dataset.commId;
+          if (!commId) return;
+          currentDetailCommunityId = commId;
+          locatedCommunityId = commId;
+          highlightCommunityOnMap(commId);
+          renderCommunityDetail(commId);
+        };
+        point.addEventListener('click', openCommunity);
+        point.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            openCommunity();
+          }
+        });
+      });
+
+      // 地图空白处 / 区多边形：提示点击具体小区点位
+      const mapSvg = document.getElementById('njMap');
+      if (mapSvg) {
+        mapSvg.addEventListener('click', (e) => {
+          if (!e.target.closest('.nj-community-point')) {
+            renderPrompt('请点击地图上的具体小区点位查看师傅');
+          }
+        });
+      }
+
+      // 应用点位"有师傅/招募中"视觉状态
+      applyCommunityPointRichState();
+
+      // 初始无高亮
+      highlightCommunityOnMap(null);
     }
 
     // ==========================================
@@ -2236,21 +1959,20 @@
       // 加载数据（localStorage 优先，无则用默认）
       loadData();
 
-      // 默认展开第一个区（鼓楼区小区最多），折叠其他的
-      const stats = getDistrictStats();
+      // 初始化地图交互（绑定小区点位点击）
+      initMapView();
 
-      // 默认展开所有区，让用户可以看到完整数据
-      // collapsedDistricts.add('全部'); // 不设置，让默认全部展开
-
-      renderChips();
-      renderList();
+      // 初始化搜索（输入小区名 → 唯一详情卡）
       initSearch();
 
-      // 初始化管理后台
-      initAdmin();
+      // 详情卡初始占位
+      renderInitialPlaceholder();
 
-      // 绑定定位按钮
+      // 绑定定位按钮（手动重新定位）
       document.getElementById('locateBtn').addEventListener('click', realLocate);
+
+      // 页面加载后自动触发定位（无需点击按钮）
+      realLocate();
     }
 
     // DOM加载完成后初始化
