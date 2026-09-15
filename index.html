@@ -2249,18 +2249,22 @@
       const container = document.getElementById('realMapContainer');
       if (!container) return;
       try {
+        // 关键：必须先显示容器再初始化 TMap。
+        // display:none 容器尺寸为 0，TMap 创建 WebGL 相机时 far plane ≤ 0，
+        // 直接抛 "far <= 0" 导致初始化失败回退 SVG。
+        const svgContainer = document.getElementById('svgMapContainer');
+        if (svgContainer) svgContainer.style.display = 'none';
+        container.style.display = 'block';
+        const legend = document.getElementById('svgMapLegend');
+        if (legend) legend.style.display = 'none';
+        // 强制 reflow，确保容器已有真实尺寸（height:417px）后再初始化
+        void container.offsetHeight;
         tmap = new TMap.Map(container, {
           // 南京城区中心（城市尺度，行政区边界由底图自带，不手动描画）
           center: new window.TMap.LatLng(32.060, 118.790),
           zoom: 10.5,
           viewMode: '2D'
         });
-        // 切换显示：隐藏 SVG 容器，显示真实地图（固定高度容器）
-        const svgContainer = document.getElementById('svgMapContainer');
-        if (svgContainer) svgContainer.style.display = 'none';
-        container.style.display = 'block';
-        const legend = document.getElementById('svgMapLegend');
-        if (legend) legend.style.display = 'none';
         // 中央提示浮层（默认"请先定位"；定位完成后由 syncRealMapWithState 隐藏）
         ensureRealMapLocateHint();
         // 同步已有状态（例如：SDK 加载完成时用户已定位）
