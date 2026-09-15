@@ -300,36 +300,39 @@
       border-radius: 4px;
     }
 
-    /* ---------- 地图视图（首屏 · 美化版） ---------- */
+    /* ---------- 地图视图（首屏 · V4 精致现代插画风） ---------- */
     #njMap {
       display: block;
       width: 100%;
       height: auto;
       overflow: visible;
-      border-radius: 16px;
-      filter: drop-shadow(0 6px 14px rgba(25, 80, 159, 0.08));
+      border-radius: 20px;
+      filter: drop-shadow(0 8px 18px rgba(25, 80, 159, 0.1));
     }
     .nj-district-group {
       outline: none;
     }
     .nj-district-group .nj-district {
       transition: fill 0.2s ease, filter 0.2s ease;
+      stroke-linejoin: round;
+      stroke-linecap: round;
+      filter: drop-shadow(0 1px 2px rgba(31, 62, 110, 0.08));
     }
-    /* 11 区：低饱和现代配色（同色系微差，白描边分隔） */
-    .nj-district-group[data-district="六合区"] .nj-district { fill: #EEF2F8; }
-    .nj-district-group[data-district="栖霞区"] .nj-district { fill: #E9EFF8; }
-    .nj-district-group[data-district="浦口区"] .nj-district { fill: #EDF3F7; }
-    .nj-district-group[data-district="鼓楼区"] .nj-district { fill: #F3F1EC; }
-    .nj-district-group[data-district="玄武区"] .nj-district { fill: #EDEFF6; }
-    .nj-district-group[data-district="建邺区"] .nj-district { fill: #EAF3EF; }
-    .nj-district-group[data-district="秦淮区"] .nj-district { fill: #F6F2EB; }
-    .nj-district-group[data-district="雨花台区"] .nj-district { fill: #EBF3EA; }
-    .nj-district-group[data-district="江宁区"] .nj-district { fill: #E9EDF5; }
-    .nj-district-group[data-district="溧水区"] .nj-district { fill: #F1EBF3; }
-    .nj-district-group[data-district="高淳区"] .nj-district { fill: #EAF1EC; }
+    /* 11 区：V4 马卡龙低饱和配色（每区明确色相、相邻区不同，白描边圆角分隔） */
+    .nj-district-group[data-district="六合区"] .nj-district { fill: #DCE9F7; }
+    .nj-district-group[data-district="栖霞区"] .nj-district { fill: #D8F0E9; }
+    .nj-district-group[data-district="浦口区"] .nj-district { fill: #E6E0F7; }
+    .nj-district-group[data-district="鼓楼区"] .nj-district { fill: #F9E4E7; }
+    .nj-district-group[data-district="玄武区"] .nj-district { fill: #E0EFD9; }
+    .nj-district-group[data-district="建邺区"] .nj-district { fill: #D9EDF6; }
+    .nj-district-group[data-district="秦淮区"] .nj-district { fill: #F9ECD9; }
+    .nj-district-group[data-district="雨花台区"] .nj-district { fill: #E9E6F5; }
+    .nj-district-group[data-district="江宁区"] .nj-district { fill: #DDEBF3; }
+    .nj-district-group[data-district="溧水区"] .nj-district { fill: #F1E7F4; }
+    .nj-district-group[data-district="高淳区"] .nj-district { fill: #E7F0E0; }
     .nj-district-group:hover .nj-district {
       fill: #FFFFFF;
-      filter: drop-shadow(0 2px 6px rgba(25, 80, 159, 0.18));
+      filter: drop-shadow(0 3px 8px rgba(25, 80, 159, 0.2));
     }
     .nj-district-group:focus-visible .nj-district {
       stroke: #19509F;
@@ -346,21 +349,25 @@
       filter: drop-shadow(0 4px 10px rgba(25, 80, 159, 0.35));
     }
     .nj-district-label {
-      font-size: 10.5px;
+      font-size: 11px;
       font-weight: 600;
-      fill: #5A6B85;
+      fill: #44566E;
       text-anchor: middle;
       paint-order: stroke;
-      stroke: #ffffff;
-      stroke-width: 2.5;
+      stroke: rgba(255, 255, 255, 0.9);
+      stroke-width: 3;
+      stroke-linejoin: round;
       pointer-events: none;
       user-select: none;
-      letter-spacing: 0.5px;
+      letter-spacing: 1px;
     }
     .nj-district-note {
       font-size: 7px;
       fill: #93A2B8;
       text-anchor: middle;
+      paint-order: stroke;
+      stroke: rgba(255, 255, 255, 0.7);
+      stroke-width: 2;
       pointer-events: none;
       user-select: none;
     }
@@ -371,12 +378,16 @@
       fill: #19509F;
       stroke: #ffffff;
       stroke-width: 1.5;
+      filter: drop-shadow(0 1px 2px rgba(25, 80, 159, 0.3));
     }
     .nj-badge text {
       fill: #ffffff;
-      font-size: 9px;
+      font-size: 10px;
       font-weight: 700;
       text-anchor: middle;
+      paint-order: stroke;
+      stroke: rgba(25, 80, 159, 0.35);
+      stroke-width: 0.5;
     }
     .nj-badge.nj-badge-empty {
       display: none;
@@ -394,10 +405,54 @@
     }
     .nj-district-group.located .nj-badge text {
       fill: #19509F;
+      stroke: rgba(255, 255, 255, 0.6);
     }
-    /* 长江（柔和渐变带） */
+    /* 长江（V4 多层水域：外光晕 + 渐变主带 + 高光 + 水流虚线） */
     .nj-river {
       stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .nj-river-glow {
+      stroke: rgba(147, 197, 253, 0.35);
+    }
+    .nj-river-shine {
+      stroke: #FFFFFF;
+      opacity: 0.6;
+    }
+    .nj-river-flow {
+      stroke: #FFFFFF;
+      opacity: 0.5;
+      stroke-dasharray: 2 8;
+    }
+    /* 地图装饰：指北针 / 水印（不影响交互） */
+    .nj-decor {
+      pointer-events: none;
+      user-select: none;
+    }
+    .nj-compass-ring {
+      fill: rgba(255, 255, 255, 0.82);
+      stroke: rgba(120, 140, 165, 0.45);
+      stroke-width: 1;
+    }
+    .nj-compass-needle {
+      fill: #19509F;
+    }
+    .nj-compass-needle-n {
+      fill: #E05263;
+    }
+    .nj-compass-letter {
+      font-size: 7px;
+      font-weight: 700;
+      fill: #44566E;
+      text-anchor: middle;
+    }
+    .nj-watermark {
+      font-size: 10px;
+      font-weight: 600;
+      fill: #19509F;
+      opacity: 0.15;
+      letter-spacing: 2px;
+      text-anchor: middle;
     }
 
     /* ========== V3: 小区点位（三态视觉 + 涟漪高亮） ========== */
@@ -438,22 +493,29 @@
       stroke: #ffffff;
       stroke-width: 1.8;
       pointer-events: none;
+      filter: drop-shadow(0 0 3px rgba(120, 140, 165, 0.35));
       transition: r 0.18s ease, fill 0.2s ease, filter 0.2s ease;
     }
     .nj-community-point.rich .nj-community-dot {
       fill: #22C55E;
-      filter: drop-shadow(0 1px 3px rgba(34, 197, 94, 0.5));
+      stroke: #ffffff;
+      stroke-width: 1.8;
+      filter: drop-shadow(0 0 4px rgba(34, 197, 94, 0.55)) drop-shadow(0 1px 3px rgba(34, 197, 94, 0.4));
     }
     .nj-community-point:hover .nj-community-dot {
       r: 7;
       stroke-width: 2.2;
+      filter: drop-shadow(0 0 6px rgba(120, 140, 165, 0.55));
+    }
+    .nj-community-point.rich:hover .nj-community-dot {
+      filter: drop-shadow(0 0 8px rgba(34, 197, 94, 0.75)) drop-shadow(0 1px 4px rgba(34, 197, 94, 0.45));
     }
     .nj-community-point.located .nj-community-dot {
       r: 9;
       fill: #19509F;
       stroke: #ffffff;
       stroke-width: 2.4;
-      filter: drop-shadow(0 2px 6px rgba(25, 80, 159, 0.6));
+      filter: drop-shadow(0 0 8px rgba(25, 80, 159, 0.7)) drop-shadow(0 2px 6px rgba(25, 80, 159, 0.5));
       animation: pointPulse 1.8s ease-out infinite;
     }
     @keyframes pointPulse {
@@ -467,10 +529,11 @@
       height: 10px;
       border-radius: 9999px;
       border: 1.5px solid #ffffff;
-      box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.12);
+      box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.12), 0 0 4px rgba(120, 140, 165, 0.35);
     }
     .legend-dot-rich {
       background: #22C55E;
+      box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.3), 0 0 5px rgba(34, 197, 94, 0.55);
     }
     .legend-dot-recruiting {
       background: #B9C6D8;
@@ -588,7 +651,7 @@
         定位到我
       </button>
       <p id="locationResult" class="text-center text-text-muted text-xs mt-2 min-h-[16px]" data-page-node-id="gh5aCLz7hN2rAaMKalyvK0"></p>
-      <div class="mt-3 rounded-2xl overflow-hidden" style="background: linear-gradient(180deg, #F8FBFE 0%, #EDF3FA 100%); border: 1px solid var(--divider, #E5EAF3);">
+      <div class="mt-3 rounded-2xl overflow-hidden" style="background: linear-gradient(180deg, #FDFEFF 0%, #F0F5FB 100%); border: 1px solid rgba(229, 234, 243, 0.9); box-shadow: 0 8px 22px rgba(25, 80, 159, 0.06);">
         <div class="flex items-center justify-between px-3 pt-3 pb-1">
           <p class="text-text font-medium text-sm">南京小区分布</p>
           <span class="text-[10px] text-text-muted bg-white/70 rounded-full px-2 py-0.5">仅展示您所在小区</span>
@@ -596,11 +659,11 @@
         <svg id="njMap" class="w-full h-auto block" viewBox="0 0 360 440" role="img" aria-label="南京市行政区示意图">
           <defs>
             <linearGradient id="njMapBg" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="#F9FBFE"></stop>
-              <stop offset="100%" stop-color="#ECF2FA"></stop>
+              <stop offset="0%" stop-color="#FDFEFF"></stop>
+              <stop offset="100%" stop-color="#F0F5FB"></stop>
             </linearGradient>
-            <pattern id="njGrid" width="26" height="26" patternUnits="userSpaceOnUse">
-              <path d="M26 0H0V26" fill="none" stroke="#DEE7F2" stroke-width="0.6"></path>
+            <pattern id="njGrid" width="22" height="22" patternUnits="userSpaceOnUse">
+              <circle cx="4" cy="4" r="0.8" fill="#D6E2F0"></circle>
             </pattern>
             <linearGradient id="njRiver" x1="0" y1="1" x2="1" y2="0">
               <stop offset="0%" stop-color="#93C5FD" stop-opacity="0.75"></stop>
@@ -608,84 +671,86 @@
               <stop offset="100%" stop-color="#93C5FD" stop-opacity="0.75"></stop>
             </linearGradient>
           </defs>
-          <rect width="360" height="440" fill="url(#njMapBg)"></rect>
-          <rect width="360" height="440" fill="url(#njGrid)"></rect>
-          <!-- 长江示意（柔和渐变带） -->
-          <path class="nj-river" d="M70,440 C65,390 95,360 88,310 C82,270 110,248 104,205 C99,172 128,152 148,122 C162,100 190,95 198,72 C204,55 225,45 245,25" fill="none" stroke="url(#njRiver)" stroke-width="13" stroke-linecap="round"></path>
-          <path class="nj-river" d="M70,440 C65,390 95,360 88,310 C82,270 110,248 104,205 C99,172 128,152 148,122 C162,100 190,95 198,72 C204,55 225,45 245,25" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" opacity="0.5"></path>
+          <rect width="360" height="440" rx="16" fill="url(#njMapBg)"></rect>
+          <rect width="360" height="440" rx="16" fill="url(#njGrid)"></rect>
+          <!-- 长江示意（V4 多层水域：外光晕 + 渐变主带 + 高光 + 水流虚线） -->
+          <path class="nj-river nj-river-glow" d="M70,440 C65,390 95,360 88,310 C82,270 110,248 104,205 C99,172 128,152 148,122 C162,100 190,95 198,72 C204,55 225,45 245,25" fill="none" stroke-width="20" stroke-linecap="round"></path>
+          <path class="nj-river" d="M70,440 C65,390 95,360 88,310 C82,270 110,248 104,205 C99,172 128,152 148,122 C162,100 190,95 198,72 C204,55 225,45 245,25" fill="none" stroke="url(#njRiver)" stroke-width="12" stroke-linecap="round"></path>
+          <path class="nj-river nj-river-shine" d="M70,440 C65,390 95,360 88,310 C82,270 110,248 104,205 C99,172 128,152 148,122 C162,100 190,95 198,72 C204,55 225,45 245,25" fill="none" stroke-width="4" stroke-linecap="round"></path>
+          <path class="nj-river nj-river-flow" d="M70,440 C65,390 95,360 88,310 C82,270 110,248 104,205 C99,172 128,152 148,122 C162,100 190,95 198,72 C204,55 225,45 245,25" fill="none" stroke-width="2" stroke-linecap="round"></path>
           <!-- 六合区 -->
           <g class="nj-district-group" data-district="六合区" aria-label="六合区（地图示意）">
-            <path class="nj-district" d="M15,45 L50,12 L120,10 L165,28 L160,72 L120,95 L75,88 L30,75 Z" fill="#FDEBD0" stroke="#D1D5DB" stroke-width="1"></path>
+            <path class="nj-district" d="M15,45 L50,12 L120,10 L165,28 L160,72 L120,95 L75,88 L30,75 Z" fill="#FDEBD0" stroke="#FFFFFF" stroke-width="1.5" stroke-linejoin="round"></path>
             <text class="nj-district-label" x="85" y="48">六合区</text>
             <text class="nj-district-note" x="85" y="61"></text>
             <g class="nj-badge nj-badge-empty"><circle cx="150" cy="18" r="9"></circle><text x="150" y="21">0</text></g>
           </g>
           <!-- 栖霞区 -->
           <g class="nj-district-group" data-district="栖霞区" aria-label="栖霞区（地图示意）">
-            <path class="nj-district" d="M165,25 L215,8 L280,22 L305,58 L295,105 L250,118 L190,105 L162,75 Z" fill="#FCE4EC" stroke="#D1D5DB" stroke-width="1"></path>
+            <path class="nj-district" d="M165,25 L215,8 L280,22 L305,58 L295,105 L250,118 L190,105 L162,75 Z" fill="#FCE4EC" stroke="#FFFFFF" stroke-width="1.5" stroke-linejoin="round"></path>
             <text class="nj-district-label" x="235" y="52">栖霞区</text>
             <text class="nj-district-note" x="235" y="65"></text>
             <g class="nj-badge nj-badge-empty"><circle cx="292" cy="28" r="9"></circle><text x="292" y="31">0</text></g>
           </g>
           <!-- 浦口区（含江北新区） -->
           <g class="nj-district-group" data-district="浦口区" aria-label="浦口区（地图示意）">
-            <path class="nj-district" d="M18,95 L70,88 L118,95 L155,112 L150,168 L128,210 L85,218 L35,200 L12,150 Z" fill="#FFF3E0" stroke="#D1D5DB" stroke-width="1"></path>
+            <path class="nj-district" d="M18,95 L70,88 L118,95 L155,112 L150,168 L128,210 L85,218 L35,200 L12,150 Z" fill="#FFF3E0" stroke="#FFFFFF" stroke-width="1.5" stroke-linejoin="round"></path>
             <text class="nj-district-label" x="80" y="150">浦口区</text>
             <text class="nj-district-note" x="80" y="163"></text>
             <g class="nj-badge nj-badge-empty"><circle cx="142" cy="100" r="9"></circle><text x="142" y="103">0</text></g>
           </g>
           <!-- 鼓楼区 -->
           <g class="nj-district-group" data-district="鼓楼区" aria-label="鼓楼区（地图示意）">
-            <path class="nj-district" d="M155,115 L205,108 L215,150 L192,182 L155,170 Z" fill="#FBE9E7" stroke="#D1D5DB" stroke-width="1"></path>
+            <path class="nj-district" d="M155,115 L205,108 L215,150 L192,182 L155,170 Z" fill="#FBE9E7" stroke="#FFFFFF" stroke-width="1.5" stroke-linejoin="round"></path>
             <text class="nj-district-label" x="182" y="142">鼓楼区</text>
             <text class="nj-district-note" x="182" y="155"></text>
             <g class="nj-badge nj-badge-empty"><circle cx="208" cy="112" r="9"></circle><text x="208" y="115">0</text></g>
           </g>
           <!-- 玄武区 -->
           <g class="nj-district-group" data-district="玄武区" aria-label="玄武区（地图示意）">
-            <path class="nj-district" d="M207,105 L262,98 L272,138 L235,160 L212,148 Z" fill="#F1F8E9" stroke="#D1D5DB" stroke-width="1"></path>
+            <path class="nj-district" d="M207,105 L262,98 L272,138 L235,160 L212,148 Z" fill="#F1F8E9" stroke="#FFFFFF" stroke-width="1.5" stroke-linejoin="round"></path>
             <text class="nj-district-label" x="238" y="126">玄武区</text>
             <text class="nj-district-note" x="238" y="139"></text>
             <g class="nj-badge nj-badge-empty"><circle cx="262" cy="102" r="9"></circle><text x="262" y="105">0</text></g>
           </g>
           <!-- 建邺区 -->
           <g class="nj-district-group" data-district="建邺区" aria-label="建邺区（地图示意）">
-            <path class="nj-district" d="M122,212 L178,190 L188,232 L165,262 L112,252 L100,228 Z" fill="#E3F2FD" stroke="#D1D5DB" stroke-width="1"></path>
+            <path class="nj-district" d="M122,212 L178,190 L188,232 L165,262 L112,252 L100,228 Z" fill="#E3F2FD" stroke="#FFFFFF" stroke-width="1.5" stroke-linejoin="round"></path>
             <text class="nj-district-label" x="148" y="226">建邺区</text>
             <text class="nj-district-note" x="148" y="239"></text>
             <g class="nj-badge nj-badge-empty"><circle cx="178" cy="194" r="9"></circle><text x="178" y="197">0</text></g>
           </g>
           <!-- 秦淮区 -->
           <g class="nj-district-group" data-district="秦淮区" aria-label="秦淮区（地图示意）">
-            <path class="nj-district" d="M188,192 L242,182 L258,222 L232,258 L192,252 L180,218 Z" fill="#FFF8E1" stroke="#D1D5DB" stroke-width="1"></path>
+            <path class="nj-district" d="M188,192 L242,182 L258,222 L232,258 L192,252 L180,218 Z" fill="#FFF8E1" stroke="#FFFFFF" stroke-width="1.5" stroke-linejoin="round"></path>
             <text class="nj-district-label" x="216" y="218">秦淮区</text>
             <text class="nj-district-note" x="216" y="231"></text>
             <g class="nj-badge nj-badge-empty"><circle cx="242" cy="186" r="9"></circle><text x="242" y="189">0</text></g>
           </g>
           <!-- 雨花台区 -->
           <g class="nj-district-group" data-district="雨花台区" aria-label="雨花台区（地图示意）">
-            <path class="nj-district" d="M108,258 L198,258 L218,288 L192,322 L128,315 L100,288 Z" fill="#E8F5E9" stroke="#D1D5DB" stroke-width="1"></path>
+            <path class="nj-district" d="M108,258 L198,258 L218,288 L192,322 L128,315 L100,288 Z" fill="#E8F5E9" stroke="#FFFFFF" stroke-width="1.5" stroke-linejoin="round"></path>
             <text class="nj-district-label" x="158" y="288">雨花台区</text>
             <text class="nj-district-note" x="158" y="301"></text>
             <g class="nj-badge nj-badge-empty"><circle cx="198" cy="262" r="9"></circle><text x="198" y="265">0</text></g>
           </g>
           <!-- 江宁区 -->
           <g class="nj-district-group" data-district="江宁区" aria-label="江宁区（地图示意）">
-            <path class="nj-district" d="M238,185 L315,175 L348,235 L342,318 L305,360 L258,342 L248,302 L228,262 Z" fill="#E8EAF6" stroke="#D1D5DB" stroke-width="1"></path>
+            <path class="nj-district" d="M238,185 L315,175 L348,235 L342,318 L305,360 L258,342 L248,302 L228,262 Z" fill="#E8EAF6" stroke="#FFFFFF" stroke-width="1.5" stroke-linejoin="round"></path>
             <text class="nj-district-label" x="288" y="262">江宁区</text>
             <text class="nj-district-note" x="288" y="275"></text>
             <g class="nj-badge nj-badge-empty"><circle cx="318" cy="180" r="9"></circle><text x="318" y="183">0</text></g>
           </g>
           <!-- 溧水区 -->
           <g class="nj-district-group" data-district="溧水区" aria-label="溧水区（地图示意）">
-            <path class="nj-district" d="M92,322 L212,322 L242,358 L228,420 L135,430 L78,395 L72,350 Z" fill="#F3E5F5" stroke="#D1D5DB" stroke-width="1"></path>
+            <path class="nj-district" d="M92,322 L212,322 L242,358 L228,420 L135,430 L78,395 L72,350 Z" fill="#F3E5F5" stroke="#FFFFFF" stroke-width="1.5" stroke-linejoin="round"></path>
             <text class="nj-district-label" x="158" y="376">溧水区</text>
             <text class="nj-district-note" x="158" y="389"></text>
             <g class="nj-badge nj-badge-empty"><circle cx="212" cy="326" r="9"></circle><text x="212" y="329">0</text></g>
           </g>
           <!-- 高淳区 -->
           <g class="nj-district-group" data-district="高淳区" aria-label="高淳区（地图示意）">
-            <path class="nj-district" d="M242,362 L330,352 L348,415 L292,436 L238,418 Z" fill="#E0F2F1" stroke="#D1D5DB" stroke-width="1"></path>
+            <path class="nj-district" d="M242,362 L330,352 L348,415 L292,436 L238,418 Z" fill="#E0F2F1" stroke="#FFFFFF" stroke-width="1.5" stroke-linejoin="round"></path>
             <text class="nj-district-label" x="290" y="394">高淳区</text>
             <text class="nj-district-note" x="290" y="407"></text>
             <g class="nj-badge nj-badge-empty"><circle cx="330" cy="356" r="9"></circle><text x="330" y="359">0</text></g>
@@ -725,6 +790,15 @@
           <g class="nj-community-point" data-comm-id="c32" role="button" tabindex="0" aria-label="中和桥五号"><circle class="nj-community-hit" cx="222" cy="252" r="11"></circle><circle class="nj-community-dot" cx="222" cy="252" r="5"></circle></g>
           <g class="nj-community-point" data-comm-id="c33" role="button" tabindex="0" aria-label="风光里二期"><circle class="nj-community-hit" cx="216" cy="258" r="11"></circle><circle class="nj-community-dot" cx="216" cy="258" r="5"></circle></g>
           <g class="nj-community-point" data-comm-id="c34" role="button" tabindex="0" aria-label="古林社区"><circle class="nj-community-hit" cx="168" cy="138" r="11"></circle><circle class="nj-community-dot" cx="168" cy="138" r="5"></circle></g>
+          <!-- 装饰：指北针（右下角，不参与交互） -->
+          <g class="nj-decor nj-compass" transform="translate(330, 414)">
+            <circle class="nj-compass-ring" cx="0" cy="0" r="12"></circle>
+            <path class="nj-compass-needle" d="M0,-8 L3.2,0 L0,-1.6 L-3.2,0 Z"></path>
+            <path class="nj-compass-needle-n" d="M0,8 L3.2,0 L0,1.6 L-3.2,0 Z"></path>
+            <text class="nj-compass-letter" x="0" y="-14">N</text>
+          </g>
+          <!-- 装饰：品牌水印（左上角，极淡） -->
+          <text class="nj-decor nj-watermark" x="60" y="22">南京 · 宁家保</text>
         </svg>
         <p class="text-center text-text-muted text-[11px] mt-2">定位后仅展示您所在小区的专属维修师傅</p>
         <div class="flex items-center justify-center gap-4 mt-2 pb-3">
@@ -1781,6 +1855,15 @@
         const isActive = !!communityId && point.dataset.commId === communityId;
         point.classList.toggle('located', isActive);
         point.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+      });
+      // V4: 定位小区的所属区同步高亮（蓝底），其余区还原
+      let locatedDistrict = null;
+      if (communityId) {
+        const c = COMMUNITIES.find(x => x.id === communityId);
+        if (c && c.district) locatedDistrict = c.district;
+      }
+      document.querySelectorAll('.nj-district-group').forEach(group => {
+        group.classList.toggle('located', !!locatedDistrict && group.dataset.district === locatedDistrict);
       });
     }
 
