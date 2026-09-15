@@ -637,6 +637,16 @@
         top: 0;
       }
     }
+
+    /* ========== V9: 附近小区二级选择菜单 ========== */
+    .nearby-option {
+      transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+      cursor: pointer;
+    }
+    .nearby-option:active {
+      transform: scale(0.98);
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+    }
   </style>
 </head>
 <body data-page-node-id="4eWG2zJ2LkLoMBpZEHT780">
@@ -691,6 +701,8 @@
         定位到我
       </button>
       <p id="locationResult" class="text-center text-text-muted text-xs mt-2 min-h-[16px]" data-page-node-id="gh5aCLz7hN2rAaMKalyvK0"></p>
+      <!-- V9: 附近小区二级选择菜单（定位命中多个小区时展示，默认隐藏；仅列出附近小区，不暴露联系方式） -->
+      <div id="nearbySelector" class="hidden"></div>
       <div class="mt-3 rounded-2xl overflow-hidden" style="background: linear-gradient(180deg, #FDFEFF 0%, #F0F5FB 100%); border: 1px solid rgba(229, 234, 243, 0.9); box-shadow: 0 8px 22px rgba(25, 80, 159, 0.06);">
         <div class="flex items-center justify-between px-3 pt-3 pb-1">
           <p class="text-text font-medium text-sm">南京小区分布</p>
@@ -1759,6 +1771,38 @@
       return 2 * R * Math.asin(Math.sqrt(a));
     }
 
+    // WGS-84（浏览器 Geolocation API 返回的 GPS 坐标）→ GCJ-02（火星坐标，国内地图/TMap 标准）
+    // 不转换直接渲染到 TMap 上会偏移 300~700 米，这正是"定位有偏差"的根因。
+    function wgs84ToGcj02(lat, lng) {
+      const a = 6378245.0;
+      const ee = 0.00669342162296594323;
+      const outOfChina = (la, ln) => (ln < 72.004 || ln > 137.8347 || la < 0.8293 || la > 55.8271);
+      const transformLat = (x, y) => {
+        let ret = -100.0 + 2.0 * x + 3.0 * y + 0.2 * y * y + 0.1 * x * y + 0.2 * Math.sqrt(Math.abs(x));
+        ret += (20.0 * Math.sin(6.0 * x * Math.PI) + 20.0 * Math.sin(2.0 * x * Math.PI)) * 2.0 / 3.0;
+        ret += (20.0 * Math.sin(y * Math.PI) + 40.0 * Math.sin(y / 3.0 * Math.PI)) * 2.0 / 3.0;
+        ret += (160.0 * Math.sin(y / 12.0 * Math.PI) + 320 * Math.sin(y * Math.PI / 30.0)) * 2.0 / 3.0;
+        return ret;
+      };
+      const transformLng = (x, y) => {
+        let ret = 300.0 + x + 2.0 * y + 0.1 * x * x + 0.1 * x * y + 0.1 * Math.sqrt(Math.abs(x));
+        ret += (20.0 * Math.sin(6.0 * x * Math.PI) + 20.0 * Math.sin(2.0 * x * Math.PI)) * 2.0 / 3.0;
+        ret += (20.0 * Math.sin(x * Math.PI) + 40.0 * Math.sin(x / 3.0 * Math.PI)) * 2.0 / 3.0;
+        ret += (150.0 * Math.sin(x / 12.0 * Math.PI) + 300.0 * Math.sin(x / 30.0 * Math.PI)) * 2.0 / 3.0;
+        return ret;
+      };
+      if (outOfChina(lat, lng)) return { lat: lat, lng: lng };
+      let dLat = transformLat(lng - 105.0, lat - 35.0);
+      let dLng = transformLng(lng - 105.0, lat - 35.0);
+      const radLat = lat / 180.0 * Math.PI;
+      let magic = Math.sin(radLat);
+      magic = 1 - ee * magic * magic;
+      const sqrtMagic = Math.sqrt(magic);
+      dLat = (dLat * 180.0) / ((a * (1 - ee)) / (magic * sqrtMagic) * Math.PI);
+      dLng = (dLng * 180.0) / (a / sqrtMagic * Math.cos(radLat) * Math.PI);
+      return { lat: lat + dLat, lng: lng + dLng };
+    }
+
     // 根据经纬度匹配最近小区（34 个点位中取 Haversine 最小者）
     function matchCommunity(lat, lng) {
       let best = null;
@@ -1768,6 +1812,19 @@
         if (dist < bestDist) { bestDist = dist; best = c; }
       });
       return { community: best, distKm: bestDist };
+    }
+
+    // V9: 附近小区识别半径（km）——南京城区小区密度下，8km 内通常覆盖 1~5 个小区
+    const NEARBY_RADIUS_KM = 8;
+
+    // V9: 附近小区识别：返回按距离升序排序、且 distKm <= radiusKm 的小区数组
+    //（仅用于二级选择菜单，绝不暴露 8km 半径之外的其他小区）
+    function nearbyCommunities(lat, lng, radiusKm) {
+      const radius = (radiusKm == null) ? NEARBY_RADIUS_KM : radiusKm;
+      return COMMUNITY_COORDS
+        .map(c => ({ community: c, distKm: haversineKm(lat, lng, c.lat, c.lng) }))
+        .filter(item => item.distKm <= radius)
+        .sort((a, b) => a.distKm - b.distKm);
     }
 
     function locateBtnLoading(btn, loading) {
@@ -1786,27 +1843,42 @@
       `;
     }
 
-    // 定位/选中某个小区：高亮对应点位 + 展示唯一详情卡
-    function locateToCommunity(communityId, distKm) {
+    // 定位/选中某个小区：高亮对应点位 + 展示唯一详情卡（并收起二级选择菜单）
+    function locateToCommunity(communityId, distKm, lowAccuracy) {
       const c = COMMUNITIES.find(x => x.id === communityId);
       if (!c) return;
       currentDetailCommunityId = communityId;
       locatedCommunityId = communityId;
+      hideNearbySelector();
       const resultEl = document.getElementById('locationResult');
-      resultEl.textContent = distKm != null
+      let msg = distKm != null
         ? `已为您定位到「${c.name}」（距您约 ${Math.round(distKm)} 公里）`
         : `已为您定位到「${c.name}」`;
+      // 低精度定位时在结果旁追加提示（不阻断流程）
+      if (lowAccuracy) msg += '（当前定位精度较低，结果可能有偏差）';
+      resultEl.textContent = msg;
 
       highlightCommunityOnMap(communityId);
       renderCommunityDetail(communityId);
     }
 
+    // 定位请求序号：防止慢回调（超时/迟到结果）覆盖新一轮定位的结果
+    let locateSeq = 0;
+
     function realLocate() {
       const resultEl = document.getElementById('locationResult');
       const btn = document.getElementById('locateBtn');
+      const seq = ++locateSeq;
+
+      // 每次定位都先收起二级选择菜单（避免旧候选残留）
+      hideNearbySelector();
 
       if (!navigator.geolocation) {
+        locateBtnLoading(btn, false);
         resultEl.textContent = '当前浏览器不支持定位，无法获取您所在小区';
+        if (!currentDetailCommunityId) {
+          renderLocateFallbackPrompt('当前浏览器不支持定位功能。您可以点击「去搜索」，直接输入您所在的小区名称进行查找。');
+        }
         return;
       }
 
@@ -1815,36 +1887,221 @@
 
       // 超时保护（部分微信内 WebView 定位很慢或静默失败）
       const timeout = setTimeout(() => {
+        if (seq !== locateSeq) return;
         locateBtnLoading(btn, false);
         resultEl.textContent = '定位超时，请开启定位后重新尝试';
+        if (!currentDetailCommunityId) {
+          renderLocateFallbackPrompt('定位超时，未能获取您的位置。请检查网络信号或所在位置后重试，也可以点击「去搜索」直接输入小区名称。');
+        }
       }, 10000);
 
       navigator.geolocation.getCurrentPosition(
         (pos) => {
+          if (seq !== locateSeq) return;
           clearTimeout(timeout);
           locateBtnLoading(btn, false);
-          const { latitude, longitude } = pos.coords;
-          // V5: 记录原始用户坐标，供真实地图渲染用户位置点（蓝色圆点）
-          lastUserLat = latitude;
-          lastUserLng = longitude;
-          const { community, distKm } = matchCommunity(latitude, longitude);
-          if (community) {
-            locateToCommunity(community.id, distKm);
-          } else {
-            resultEl.textContent = '暂未匹配到附近小区，请确认位置后重新尝试';
+          const { latitude, longitude, accuracy } = pos.coords;
+          // 浏览器返回 WGS-84 坐标，必须转 GCJ-02 后再匹配/渲染（否则 TMap 上偏移 300~700 米）
+          const gcj = wgs84ToGcj02(latitude, longitude);
+          // V5: 记录原始用户坐标（已转 GCJ-02），供真实地图渲染用户位置点（蓝色圆点）
+          lastUserLat = gcj.lat;
+          lastUserLng = gcj.lng;
+          // 低精度兜底：accuracy > 1000 米时追加提示（仍按流程继续）
+          const lowAccuracy = (accuracy != null && accuracy > 1000);
+
+          // 服务范围保护：距最近服务小区过远（如用户在上海），提示不在服务区，不强行匹配
+          const nearest = matchCommunity(gcj.lat, gcj.lng);
+          if (nearest.community && nearest.distKm > 60) {
+            resultEl.textContent = '您当前不在南京服务范围内（距最近服务点约 ' +
+              Math.round(nearest.distKm) + ' 公里）';
+            // 服务范围外：清空定位与详情，不展示任何小区（隐私红线）
+            locatedCommunityId = null;
+            currentDetailCommunityId = null;
+            // 蓝点仍显示在用户真实位置（GCJ-02 修正后），地图居中到用户位置
+            highlightCommunityOnMap(null);
+            if (tmap) syncRealMapWithState();
+            renderLocateFallbackPrompt('您当前不在南京服务范围内（距最近服务点约 ' +
+              Math.round(nearest.distKm) + ' 公里）。如您所在的小区不在服务列表，请联系您的宁家保服务专员。');
+            return;
           }
+
+          // 附近小区识别（8km 半径内，按距离升序）
+          const nearby = nearbyCommunities(gcj.lat, gcj.lng, NEARBY_RADIUS_KM);
+
+          // 8km 内无小区：若此前已定位，保留原结果；否则引导手动搜索
+          if (nearby.length === 0) {
+            const prevName = locatedCommunityName();
+            if (prevName) {
+              resultEl.textContent = '未找到新的附近小区，仍展示此前定位的「' + prevName + '」';
+              if (tmap) syncRealMapWithState();
+              return;
+            }
+            resultEl.textContent = lowAccuracy
+              ? '未找到附近小区，可手动搜索小区名称（当前定位精度较低，结果可能有偏差）'
+              : '未找到附近小区，可手动搜索小区名称';
+            highlightCommunityOnMap(null);
+            if (tmap) syncRealMapWithState();
+            renderLocateFallbackPrompt('未找到附近小区。您可以点击「去搜索」，直接输入您所在的小区名称进行查找。');
+            return;
+          }
+
+          // 恰好 1 个：直接展示该小区联系方式
+          if (nearby.length === 1) {
+            locateToCommunity(nearby[0].community.id, nearby[0].distKm, lowAccuracy);
+            return;
+          }
+
+          // 多个（≥2）：先展示二级选择菜单，等客户选择后再展示联系方式
+          resultEl.textContent = lowAccuracy
+            ? '定位完成（当前定位精度较低，结果可能有偏差）'
+            : '定位完成，为您找到 ' + nearby.length + ' 个附近小区';
+          // 尚未确认所在小区：清空定位与详情，点位/搜索仍走隐私保护
+          locatedCommunityId = null;
+          currentDetailCommunityId = null;
+          highlightCommunityOnMap(null);
+          if (tmap) syncRealMapWithState();
+          renderNearbySelector(nearby, lowAccuracy);
+          renderPrompt('已为您找到 ' + nearby.length + ' 个附近小区，请选择您所在的小区，即可查看对应的维修师傅联系方式。');
         },
         (err) => {
+          if (seq !== locateSeq) return;
           clearTimeout(timeout);
           locateBtnLoading(btn, false);
-          // 权限拒绝 / 位置不可用 / 超时 的统一友好降级
-          let msg = '无法获取定位，请开启定位后重新尝试';
-          if (err && err.code === 1) msg = '未授权定位权限，请开启定位后重新尝试';
-          else if (err && err.code === 3) msg = '定位超时，请开启定位后重新尝试';
-          resultEl.textContent = msg;
+          // 权限拒绝 / 位置不可用 / 超时 的分级友好降级
+          let msg = '无法获取定位';
+          let guide = '您可以点击「去搜索」，直接输入您所在的小区名称进行查找。';
+          if (err && err.code === 1) {
+            msg = '未授权定位权限';
+            guide = '请在浏览器设置 / 微信右上角「...」菜单中开启定位权限后点击「重新定位」，或点击「去搜索」直接输入小区名称。';
+          } else if (err && err.code === 2) {
+            msg = '暂时无法获取位置信息';
+            guide = '请检查网络与定位开关后点击「重新定位」，或点击「去搜索」直接输入小区名称。';
+          } else if (err && err.code === 3) {
+            msg = '定位超时';
+            guide = '定位超时可能是网络较慢或信号不佳，请点击「重新定位」重试，或点击「去搜索」直接输入小区名称。';
+          } else {
+            msg = '无法获取定位';
+            guide = '请确认已允许定位权限后点击「重新定位」，或点击「去搜索」直接输入小区名称。';
+          }
+          resultEl.textContent = msg + '，请开启定位后重新尝试';
+          if (!currentDetailCommunityId) {
+            renderLocateFallbackPrompt(msg + '。' + guide);
+          }
         },
-        { enableHighAccuracy: false, timeout: 8000, maximumAge: 30000 }
+        // 高精度定位（GPS/基站），显著降低 wifi/IP 定位的百米级~公里级误差
+        { enableHighAccuracy: true, timeout: 10000, maximumAge: 10000 }
       );
+    }
+
+    // ==========================================
+    // V9: 附近小区二级选择菜单 + 定位失败兜底
+    // ==========================================
+
+    // 隐藏并清空二级选择菜单
+    function hideNearbySelector() {
+      const container = document.getElementById('nearbySelector');
+      if (container) {
+        container.classList.add('hidden');
+        container.innerHTML = '';
+      }
+    }
+
+    // 渲染二级选择菜单（仅展示附近小区：名称 + 距离 + 所在区；绝不暴露联系方式）
+    // 点击某个候选 → locateToCommunity 展示对应小区详情并收起菜单
+    function renderNearbySelector(nearbyList, lowAccuracy) {
+      const container = document.getElementById('nearbySelector');
+      if (!container) return;
+      const list = (nearbyList || []).filter(item => item && item.community);
+      if (list.length < 2) {
+        hideNearbySelector();
+        return;
+      }
+      const cardsHtml = list.map(item => {
+        const c = COMMUNITIES.find(x => x.id === item.community.id);
+        const name = c ? c.name : item.community.id;
+        const district = c && c.district ? c.district : '';
+        const distText = item.distKm < 1
+          ? Math.max(1, Math.round(item.distKm * 1000)) + ' 米'
+          : item.distKm.toFixed(1) + ' 公里';
+        return `
+          <button type="button" class="nearby-option w-full text-left flex items-center justify-between gap-3 px-4 py-3 bg-white rounded-xl border border-divider shadow-sm transition-colors" data-comm-id="${escapeHtml(item.community.id)}" data-dist-km="${item.distKm}">
+            <div class="min-w-0">
+              <p class="text-text font-medium text-sm truncate">${escapeHtml(name)}</p>
+              <p class="text-text-muted text-xs mt-0.5">${escapeHtml(district)}</p>
+            </div>
+            <span class="flex-shrink-0 text-xs bg-primary/10 text-primary px-2 py-1 rounded-md">距您约 ${distText}</span>
+          </button>
+        `;
+      }).join('');
+
+      container.innerHTML = `
+        <div class="mt-3 bg-card rounded-2xl border border-primary/20 shadow-sm overflow-hidden">
+          <div class="flex items-center justify-between px-4 pt-3 pb-2">
+            <p class="text-text font-medium text-sm">为您找到 ${list.length} 个附近小区，请选择</p>
+            <button type="button" id="nearbyRelocateBtn" class="inline-flex items-center gap-1 text-xs text-primary bg-primary/10 px-2.5 py-1.5 rounded-full">重新定位</button>
+          </div>
+          <div class="px-3 pb-3 max-h-56 overflow-y-auto flex flex-col gap-2">
+            ${cardsHtml}
+          </div>
+        </div>
+      `;
+      container.classList.remove('hidden');
+
+      // 点击候选小区 → 展示该小区联系方式并收起菜单
+      container.querySelectorAll('.nearby-option').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const id = btn.dataset.commId;
+          const distKm = parseFloat(btn.dataset.distKm);
+          if (!id) return;
+          locateToCommunity(id, distKm, lowAccuracy);
+        });
+      });
+      // 「重新定位」小按钮
+      const relocateBtn = container.querySelector('#nearbyRelocateBtn');
+      if (relocateBtn) relocateBtn.addEventListener('click', () => {
+        realLocate();
+      });
+    }
+
+    // 聚焦搜索框（供「去搜索」入口使用）
+    function focusSearchInput() {
+      const input = document.getElementById('searchInput');
+      if (input) {
+        input.focus();
+        try {
+          input.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        } catch (err) {
+          // 老浏览器不支持平滑滚动则忽略
+        }
+      }
+    }
+
+    // 定位失败 / 无结果的兜底提示卡（含「重新定位」与「去搜索」两个可点入口）
+    function renderLocateFallbackPrompt(msg) {
+      // 已有展示中的小区详情时，保留详情卡不覆盖，仅在定位结果区提示
+      if (currentDetailCommunityId) return;
+      const detailContent = document.getElementById('detailContent');
+      if (!detailContent) return;
+      detailContent.innerHTML = `
+        <div class="bg-card rounded-2xl p-6 text-center shadow-sm border border-divider view-fade">
+          <div class="mx-auto w-10 h-10 flex items-center justify-center rounded-full bg-amber-50 mb-3">
+            <svg class="w-5 h-5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+          </div>
+          <p class="text-text text-sm leading-relaxed mb-4">${escapeHtml(msg)}</p>
+          <div class="flex gap-2 justify-center">
+            <button type="button" id="fallbackRelocateBtn" class="flex-1 py-2.5 bg-primary text-white rounded-xl text-sm font-medium" style="max-width:10rem">重新定位</button>
+            <button type="button" id="fallbackSearchBtn" class="flex-1 py-2.5 bg-white border border-primary text-primary rounded-xl text-sm font-medium" style="max-width:10rem">去搜索</button>
+          </div>
+        </div>
+      `;
+      const relocateBtn = detailContent.querySelector('#fallbackRelocateBtn');
+      if (relocateBtn) relocateBtn.addEventListener('click', () => {
+        realLocate();
+      });
+      const searchBtn = detailContent.querySelector('#fallbackSearchBtn');
+      if (searchBtn) searchBtn.addEventListener('click', () => {
+        focusSearchInput();
+      });
     }
 
     // ==========================================
