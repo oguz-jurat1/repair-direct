@@ -656,8 +656,33 @@
 
     /* --- 顶部标题区：柔和蓝流动渐变（background-position 方式，兼容微信内置浏览器） --- */
     .header-flow {
-      background-size: 170% 170%;
-      animation: headerFlow 14s ease-in-out infinite;
+      position: relative;
+      overflow: hidden;
+      background-size: 260% 260%;
+      animation: headerFlow 7s ease-in-out infinite;
+    }
+    /* 高光斜条扫过：半透明白色光带自左向右划过标题区，形成明显流光 */
+    .header-flow::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: -45%;
+      width: 40%;
+      background: linear-gradient(
+        100deg,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.55) 50%,
+        rgba(255, 255, 255, 0) 100%
+      );
+      transform: skewX(-18deg);
+      pointer-events: none;
+      animation: headerSheen 3.2s ease-in-out infinite;
+    }
+    @keyframes headerSheen {
+      0%   { left: -45%; }
+      55%  { left: -45%; }
+      100% { left: 135%; }
     }
     @keyframes headerFlow {
       0%   { background-position: 0% 50%; }
@@ -672,14 +697,14 @@
     .scene-in.delay-1 { animation-delay: 0.12s; }
     .scene-in.delay-2 { animation-delay: 0.24s; }
     .scene-in.delay-3 { animation-delay: 0.36s; }
-    /* 标题区同时挂 .header-flow（14s 流光）与 .scene-in（0.6s 入场）：
+    /* 标题区同时挂 .header-flow（7s 流光 + 3.2s 高光扫过）与 .scene-in（0.6s 入场）：
        两条单类规则同特异性，后出现的 .scene-in 会以 animation 简写整体覆盖
        headerFlow 的 animation-name，导致流光从不运行。此处用更高特异性
        （双类 0,2,0）合并两个动画：headerFlow 持续循环流光，
        vocabSceneIn 只播放一次入场淡入上浮，二者作用属性不同（background-position
        与 opacity/transform），互不冲突。 */
     .header-flow.scene-in {
-      animation: headerFlow 14s ease-in-out infinite, vocabSceneIn 0.6s ease both;
+      animation: headerFlow 7s ease-in-out infinite, vocabSceneIn 0.6s ease both;
     }
     @keyframes vocabSceneIn {
       from { opacity: 0; transform: translateY(12px); }
@@ -764,6 +789,7 @@
     /* --- 无障碍：用户偏好减少动效时关闭动画 --- */
     @media (prefers-reduced-motion: reduce) {
       .header-flow,
+      .header-flow::after,
       .qr-card,
       .scene-in,
       .animate-spin,
