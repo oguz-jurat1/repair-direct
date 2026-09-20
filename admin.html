@@ -104,7 +104,7 @@
     .alert-ok { background: #F0FDF4; color: #15803D; border-color: #BBF7D0; }
 
     /* 主面板 */
-    .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 18px; }
+    .stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 18px; }
     .stat-card {
       background: #fff;
       border: 1px solid #E5EAF2;
@@ -114,16 +114,21 @@
     }
     .stat-card .num { font-size: 26px; font-weight: 800; color: #19509F; line-height: 1.2; }
     .stat-card .lbl { font-size: 12px; color: #6B7280; margin-top: 2px; }
-    /* 51LA 数据挂件适配：嵌入 #laWidget 内，覆盖其默认样式使其融入统计卡 */
-    .stat-card.stat-visit .num { display: flex; align-items: center; gap: 6px; }
-    .stat-card.stat-visit .la-loading { color: #9CA3AF; font-weight: 600; }
-    #laWidget iframe,
-    #laWidget img,
-    #laWidget a,
-    #laWidget span,
-    #laWidget div { vertical-align: middle; }
-    #laWidget .la-widget-num { font-size: 26px; font-weight: 800; color: #19509F; }
-    #laWidget .la-widget-total { font-size: 13px; color: #6B7280; margin-left: 4px; }
+    /* 后台标签页导航（数据管理 / 访问数据） */
+    .admin-tabs { display: flex; gap: 2px; border-bottom: 2px solid #E5EAF2; margin-bottom: 18px; }
+    .admin-tabs .tab-btn {
+      background: none; border: none; border-bottom: 2px solid transparent; margin-bottom: -2px;
+      padding: 10px 20px; font-size: 14px; font-weight: 600; color: #6B7280; cursor: pointer;
+      font-family: inherit; transition: color 0.15s;
+    }
+    .admin-tabs .tab-btn:hover { color: #19509F; }
+    .admin-tabs .tab-btn.active { color: #19509F; border-bottom-color: #19509F; }
+    /* 访问数据标签页：51LA 数据挂件容器 */
+    #laWidgetBox { min-height: 150px; padding: 10px 0; line-height: 1.9; }
+    #laWidgetBox .la-loading { color: #9CA3AF; font-weight: 600; }
+    #laWidgetBox iframe, #laWidgetBox img, #laWidgetBox a, #laWidgetBox span, #laWidgetBox div { vertical-align: middle; }
+    #laWidgetBox .la-widget-num { font-size: 26px; font-weight: 800; color: #19509F; }
+    #laWidgetBox .la-widget-total { font-size: 13px; color: #6B7280; margin-left: 4px; }
     .toolbar { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; align-items: center; }
     .toolbar .spacer { flex: 1; }
     .toolbar input[type="text"], .toolbar input[type="search"] {
@@ -287,40 +292,51 @@
 
     <!-- 管理主面板 -->
     <section id="mainPanel" class="hidden">
-      <div class="stats-row">
-        <div class="stat-card"><div class="num" id="statWorkers">0</div><div class="lbl">入驻师傅总数</div></div>
-        <div class="stat-card"><div class="num" id="statCovered">0</div><div class="lbl">已覆盖小区（有师傅）</div></div>
-        <div class="stat-card"><div class="num" id="statCommunities">0</div><div class="lbl">小区总数</div></div>
-        <div class="stat-card stat-visit">
-          <div class="num" id="laWidget"><span class="la-loading">—</span></div>
-          <div class="lbl">平台访问量（51LA）</div>
+      <div class="admin-tabs" role="tablist">
+        <button class="tab-btn active" id="tabBtnManage" type="button" role="tab" aria-selected="true">数据管理</button>
+        <button class="tab-btn" id="tabBtnVisit" type="button" role="tab" aria-selected="false">访问数据</button>
+      </div>
+
+      <div id="tabManage">
+        <div class="stats-row">
+          <div class="stat-card"><div class="num" id="statWorkers">0</div><div class="lbl">入驻师傅总数</div></div>
+          <div class="stat-card"><div class="num" id="statCovered">0</div><div class="lbl">已覆盖小区（有师傅）</div></div>
+          <div class="stat-card"><div class="num" id="statCommunities">0</div><div class="lbl">小区总数</div></div>
+        </div>
+
+        <div class="toolbar">
+          <button class="btn btn-primary" id="addWorkerBtn">+ 新增师傅</button>
+          <button class="btn btn-light" id="addCommunityBtn">+ 新增小区</button>
+          <input type="search" id="searchInput" placeholder="搜索师傅 / 小区…">
+          <div class="spacer"></div>
+          <button class="btn btn-light" id="exportHtmlBtn">导出客户端页面</button>
+          <button class="btn btn-light" id="exportJsonBtn">导出 JSON</button>
+          <label class="btn btn-light" style="cursor:pointer;">导入 JSON<input type="file" id="importJsonInput" accept=".json,application/json" hidden></label>
+          <button class="btn btn-light" id="restoreBtn">恢复默认</button>
+        </div>
+
+        <div class="card">
+          <h2>师傅列表 <span class="count" id="workerCount"></span></h2>
+          <ul class="item-list" id="workerList"></ul>
+        </div>
+
+        <div class="card">
+          <h2>小区列表 <span class="count" id="communityCount"></span></h2>
+          <ul class="item-list" id="communityList"></ul>
+        </div>
+
+        <div class="card">
+          <h2>审计日志 <span class="count">最近 10 条</span></h2>
+          <ul class="audit-list" id="auditList"></ul>
         </div>
       </div>
 
-      <div class="toolbar">
-        <button class="btn btn-primary" id="addWorkerBtn">+ 新增师傅</button>
-        <button class="btn btn-light" id="addCommunityBtn">+ 新增小区</button>
-        <input type="search" id="searchInput" placeholder="搜索师傅 / 小区…">
-        <div class="spacer"></div>
-        <button class="btn btn-light" id="exportHtmlBtn">导出客户端页面</button>
-        <button class="btn btn-light" id="exportJsonBtn">导出 JSON</button>
-        <label class="btn btn-light" style="cursor:pointer;">导入 JSON<input type="file" id="importJsonInput" accept=".json,application/json" hidden></label>
-        <button class="btn btn-light" id="restoreBtn">恢复默认</button>
-      </div>
-
-      <div class="card">
-        <h2>师傅列表 <span class="count" id="workerCount"></span></h2>
-        <ul class="item-list" id="workerList"></ul>
-      </div>
-
-      <div class="card">
-        <h2>小区列表 <span class="count" id="communityCount"></span></h2>
-        <ul class="item-list" id="communityList"></ul>
-      </div>
-
-      <div class="card">
-        <h2>审计日志 <span class="count">最近 10 条</span></h2>
-        <ul class="audit-list" id="auditList"></ul>
+      <div id="tabVisit" class="hidden">
+        <div class="card">
+          <h2>平台访问数据 <span class="count">51LA 统计</span></h2>
+          <div id="laWidgetBox"><span class="la-loading">加载中…</span></div>
+          <p class="hint" style="margin-top:10px;">数据来自 51LA 站长统计，仅统计线上版（repair-direct.github.io）访问；本地预览不加载。</p>
+        </div>
       </div>
     </section>
   </div>
@@ -885,11 +901,33 @@
       var admin = getAdmin();
       document.getElementById('currentUserLabel').textContent = admin ? ('管理员：' + admin.username) : '管理员';
       renderAdminMain();
-      loadVisitWidget();
+    }
+
+    function switchAdminTab(tab) {
+      var manage = document.getElementById('tabManage');
+      var visit = document.getElementById('tabVisit');
+      var bm = document.getElementById('tabBtnManage');
+      var bv = document.getElementById('tabBtnVisit');
+      if (tab === 'visit') {
+        manage.classList.add('hidden');
+        visit.classList.remove('hidden');
+        bm.classList.remove('active');
+        bv.classList.add('active');
+        bm.setAttribute('aria-selected', 'false');
+        bv.setAttribute('aria-selected', 'true');
+        loadVisitWidget();
+      } else {
+        visit.classList.add('hidden');
+        manage.classList.remove('hidden');
+        bv.classList.remove('active');
+        bm.classList.add('active');
+        bv.setAttribute('aria-selected', 'false');
+        bm.setAttribute('aria-selected', 'true');
+      }
     }
 
     function loadVisitWidget() {
-      var box = document.getElementById('laWidget');
+      var box = document.getElementById('laWidgetBox');
       if (!box || box.getAttribute('data-loaded')) return;
       box.setAttribute('data-loaded', '1');
       var s = document.createElement('script');
@@ -1477,6 +1515,8 @@
         if (e.key === 'Enter') handleLogin();
       });
       document.getElementById('logoutBtn').addEventListener('click', logoutAdmin);
+      document.getElementById('tabBtnManage').addEventListener('click', function () { switchAdminTab('manage'); });
+      document.getElementById('tabBtnVisit').addEventListener('click', function () { switchAdminTab('visit'); });
       document.getElementById('statsBtn').addEventListener('click', function () {
         window.open('https://v6.51.la/', '_blank', 'noopener');
       });
