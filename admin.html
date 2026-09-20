@@ -104,7 +104,7 @@
     .alert-ok { background: #F0FDF4; color: #15803D; border-color: #BBF7D0; }
 
     /* 主面板 */
-    .stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 18px; }
+    .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 18px; }
     .stat-card {
       background: #fff;
       border: 1px solid #E5EAF2;
@@ -114,6 +114,16 @@
     }
     .stat-card .num { font-size: 26px; font-weight: 800; color: #19509F; line-height: 1.2; }
     .stat-card .lbl { font-size: 12px; color: #6B7280; margin-top: 2px; }
+    /* 51LA 数据挂件适配：嵌入 #laWidget 内，覆盖其默认样式使其融入统计卡 */
+    .stat-card.stat-visit .num { display: flex; align-items: center; gap: 6px; }
+    .stat-card.stat-visit .la-loading { color: #9CA3AF; font-weight: 600; }
+    #laWidget iframe,
+    #laWidget img,
+    #laWidget a,
+    #laWidget span,
+    #laWidget div { vertical-align: middle; }
+    #laWidget .la-widget-num { font-size: 26px; font-weight: 800; color: #19509F; }
+    #laWidget .la-widget-total { font-size: 13px; color: #6B7280; margin-left: 4px; }
     .toolbar { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; align-items: center; }
     .toolbar .spacer { flex: 1; }
     .toolbar input[type="text"], .toolbar input[type="search"] {
@@ -281,6 +291,10 @@
         <div class="stat-card"><div class="num" id="statWorkers">0</div><div class="lbl">入驻师傅总数</div></div>
         <div class="stat-card"><div class="num" id="statCovered">0</div><div class="lbl">已覆盖小区（有师傅）</div></div>
         <div class="stat-card"><div class="num" id="statCommunities">0</div><div class="lbl">小区总数</div></div>
+        <div class="stat-card stat-visit">
+          <div class="num" id="laWidget"><span class="la-loading">—</span></div>
+          <div class="lbl">平台访问量（51LA）</div>
+        </div>
       </div>
 
       <div class="toolbar">
@@ -871,6 +885,19 @@
       var admin = getAdmin();
       document.getElementById('currentUserLabel').textContent = admin ? ('管理员：' + admin.username) : '管理员';
       renderAdminMain();
+      loadVisitWidget();
+    }
+
+    function loadVisitWidget() {
+      var box = document.getElementById('laWidget');
+      if (!box || box.getAttribute('data-loaded')) return;
+      box.setAttribute('data-loaded', '1');
+      var s = document.createElement('script');
+      s.id = 'LA-DATA-WIDGET';
+      s.crossOrigin = 'anonymous';
+      s.charset = 'UTF-8';
+      s.src = 'https://v6-widget.51.la/v6/3RFy4ESstMwddOpN/quote.js?theme=0&col=true&f=12&badge=icon_0&icon=center';
+      box.appendChild(s);
     }
 
     function logoutAdmin() {
