@@ -897,6 +897,16 @@
       s.crossOrigin = 'anonymous';
       s.charset = 'UTF-8';
       s.src = 'https://v6-widget.51.la/v6/3RFy4ESstMwddOpN/quote.js?theme=0&col=true&f=12&badge=icon_0&icon=center';
+      s.onload = function () {
+        // 挂件脚本执行后：确认真正渲染出挂件才移除占位符（白名单不匹配时脚本会自移除且不渲染）
+        setTimeout(function () {
+          var rendered = box.querySelector('.la-widget, .la-data-widget__container, iframe, img');
+          if (rendered) {
+            var l = box.querySelector('.la-loading');
+            if (l && l.parentNode) l.parentNode.removeChild(l);
+          }
+        }, 300);
+      };
       box.appendChild(s);
     }
 
