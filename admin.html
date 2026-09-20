@@ -225,6 +225,7 @@
     <div class="brand">宁家保 · 维修数据管理后台<small>仅限内部管理员使用</small></div>
     <div class="user-area hidden" id="userArea">
       <span id="currentUserLabel"></span>
+      <button type="button" id="statsBtn" title="打开 51LA 访问统计报表（新窗口）">访问统计</button>
       <button type="button" id="changePwBtn">修改密码</button>
       <button type="button" id="logoutBtn">退出登录</button>
     </div>
@@ -1439,6 +1440,9 @@
         if (e.key === 'Enter') handleLogin();
       });
       document.getElementById('logoutBtn').addEventListener('click', logoutAdmin);
+      document.getElementById('statsBtn').addEventListener('click', function () {
+        window.open('https://v6.51.la/', '_blank', 'noopener');
+      });
 
       document.getElementById('changePwBtn').addEventListener('click', openChangePw);
       document.getElementById('changePwCancel').addEventListener('click', closeChangePw);
