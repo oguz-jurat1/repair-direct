@@ -223,12 +223,123 @@
     }
     body {
       margin: 0;
-      background: #F7F7F7;
+      position: relative;
+      background: linear-gradient(128deg, #EAF4FB 0%, #D5E8F5 24%, #F8FCFF 48%, #D8ECF6 72%, #EAF4FB 100%);
+      background-size: 300% 300%;
+      animation: pageFlow 24s ease-in-out infinite;
       min-height: 100dvh;
       padding-bottom: env(safe-area-inset-bottom, 20px);
       width: 100%;
       max-width: 100%;
       overflow-x: hidden;
+    }
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+    body::before {
+      background:
+        radial-gradient(circle at 14% 22%, rgba(255, 255, 255, 0.78), transparent 34%),
+        radial-gradient(circle at 78% 16%, rgba(255, 255, 255, 0.62), transparent 30%),
+        radial-gradient(circle at 88% 74%, rgba(191, 222, 244, 0.52), transparent 32%),
+        radial-gradient(circle at 24% 82%, rgba(211, 232, 246, 0.62), transparent 34%);
+      animation: bubbleDrift 16s ease-in-out infinite alternate;
+    }
+    body::after {
+      background-image:
+        radial-gradient(circle at 8% 36%, rgba(255, 255, 255, 0.5) 0 6px, transparent 7px),
+        radial-gradient(circle at 16% 68%, rgba(255, 255, 255, 0.42) 0 10px, transparent 11px),
+        radial-gradient(circle at 32% 18%, rgba(255, 255, 255, 0.35) 0 5px, transparent 6px),
+        radial-gradient(circle at 48% 82%, rgba(255, 255, 255, 0.4) 0 9px, transparent 10px),
+        radial-gradient(circle at 64% 28%, rgba(255, 255, 255, 0.32) 0 7px, transparent 8px),
+        radial-gradient(circle at 76% 64%, rgba(255, 255, 255, 0.45) 0 12px, transparent 13px),
+        radial-gradient(circle at 92% 42%, rgba(255, 255, 255, 0.38) 0 6px, transparent 7px);
+      background-size: 520px 460px, 620px 560px, 440px 420px, 700px 640px, 520px 480px, 760px 700px, 480px 440px;
+      animation: bubblesRise 22s ease-in-out infinite alternate;
+      opacity: 0.68;
+    }
+    @keyframes pageFlow {
+      0%   { background-position: 0% 50%; }
+      50%  { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    @keyframes bubbleDrift {
+      0%   { opacity: 0.62; transform: translate3d(-1.5%, -1%, 0) scale(1); }
+      50%  { opacity: 0.9; transform: translate3d(1.5%, 1.2%, 0) scale(1.04); }
+      100% { opacity: 0.7; transform: translate3d(-1%, 1.5%, 0) scale(1); }
+    }
+    @keyframes bubblesRise {
+      0%   { background-position: 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0; }
+      100% { background-position: 140px -90px, -100px 130px, 70px 60px, -180px -160px, 120px 180px, -70px -120px, 90px 70px; }
+    }
+    #app {
+      position: relative;
+      isolation: isolate;
+      width: 100%;
+      max-width: 100%;
+      overflow-x: hidden;
+      background: rgba(250, 253, 255, 0.76);
+      -webkit-backdrop-filter: blur(20px);
+      backdrop-filter: blur(20px);
+      box-shadow: 0 0 44px rgba(91, 140, 201, 0.12);
+    }
+    #app > * {
+      position: relative;
+      z-index: 1;
+    }
+    #app > .bg-bubble-layer {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+      contain: paint;
+      opacity: 0.8;
+    }
+    .bg-bubble {
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(circle at 32% 28%, rgba(255, 255, 255, 0.92) 0%, rgba(255, 255, 255, 0.4) 24%, rgba(255, 255, 255, 0.08) 54%, rgba(255, 255, 255, 0) 72%);
+      box-shadow: inset 0 0 1px rgba(255, 255, 255, 0.78);
+    }
+    .bg-bubble::after {
+      content: "";
+      position: absolute;
+      left: 16%;
+      top: 12%;
+      width: 24%;
+      height: 15%;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.9);
+      filter: blur(1px);
+    }
+    .bg-bubble-1 { width: 104px; height: 104px; left: 2%; top: 16%; animation: bubbleFloatA 14s ease-in-out infinite; }
+    .bg-bubble-2 { width: 56px; height: 56px; right: 6%; top: 30%; animation: bubbleFloatB 11s ease-in-out infinite; }
+    .bg-bubble-3 { width: 78px; height: 78px; left: 14%; bottom: 12%; animation: bubbleFloatC 17s ease-in-out infinite; }
+    .bg-bubble-4 { width: 42px; height: 42px; right: 16%; top: 58%; animation: bubbleFloatD 13s ease-in-out infinite; }
+    .bg-bubble-5 { width: 130px; height: 130px; right: -22px; bottom: 18%; animation: bubbleFloatA 19s ease-in-out infinite reverse; }
+    .bg-bubble-6 { width: 34px; height: 34px; left: 42%; top: 46%; animation: bubbleFloatB 9s ease-in-out infinite reverse; }
+    .bg-bubble-7 { width: 66px; height: 66px; left: -14px; top: 62%; animation: bubbleFloatD 15s ease-in-out infinite; }
+    .bg-bubble-8 { width: 20px; height: 20px; left: 62%; bottom: 28%; animation: bubbleFloatC 8s ease-in-out infinite; }
+    @keyframes bubbleFloatA {
+      0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+      50% { transform: translate3d(28px, -42px, 0) scale(1.08); }
+    }
+    @keyframes bubbleFloatB {
+      0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+      50% { transform: translate3d(-22px, 34px, 0) scale(0.94); }
+    }
+    @keyframes bubbleFloatC {
+      0%, 100% { transform: translate3d(0, 0, 0); }
+      50% { transform: translate3d(38px, 24px, 0) scale(1.06); }
+    }
+    @keyframes bubbleFloatD {
+      0%, 100% { transform: translate3d(0, 0, 0); }
+      50% { transform: translate3d(-30px, -22px, 0) scale(1.1); }
     }
     .district-chip {
       transition: all 0.2s ease;
@@ -285,8 +396,16 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      background: white;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      background: rgba(255, 255, 255, 0.72);
+      -webkit-backdrop-filter: blur(18px) saturate(1.12);
+      backdrop-filter: blur(18px) saturate(1.12);
+      border-bottom: 1px solid rgba(91, 140, 201, 0.10);
+      box-shadow: 0 6px 22px rgba(91, 140, 201, 0.08);
+    }
+    .glass-search-area {
+      background: rgba(255, 255, 255, 0.60);
+      -webkit-backdrop-filter: blur(16px);
+      backdrop-filter: blur(16px);
     }
     .highlight-card {
       animation: highlightPulse 2s ease-out;
@@ -550,11 +669,13 @@
     #realMapContainer {
       display: none;
       width: 100%;
-      height: 417px;
+      height: 250px;
       position: relative;
-      border-radius: 14px;
+      border-radius: 12px;
       overflow: hidden;
-      background: #E8EDF4;
+      background: rgba(232, 237, 244, 0.88);
+      touch-action: pan-y;
+      overscroll-behavior: contain;
     }
     /* 地图模式的中央提示（未定位时显示"请先定位"浮层） */
     #realMapLocateHint {
@@ -576,7 +697,38 @@
     }
     @media (min-width: 768px) {
       #realMapContainer {
-        height: 640px;
+        height: 360px;
+      }
+    }
+
+    /* V11: 地图预览收窄为紧凑磨砂卡片，避免大图抢占首屏且防止横向拖动误触 */
+    .map-card {
+      position: relative;
+      background: rgba(255, 255, 255, 0.74);
+      -webkit-backdrop-filter: blur(16px) saturate(1.08);
+      backdrop-filter: blur(16px) saturate(1.08);
+      border-color: rgba(91, 140, 201, 0.16);
+      box-shadow: 0 10px 24px rgba(91, 140, 201, 0.10);
+    }
+    #svgMapContainer {
+      height: 236px;
+      overflow: hidden;
+      contain: paint;
+      touch-action: pan-y;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+    #svgMapContainer svg {
+      display: block;
+      width: 100%;
+      height: 236px;
+    }
+    @media (min-width: 768px) {
+      #svgMapContainer {
+        height: 330px;
+      }
+      #svgMapContainer svg {
+        height: 330px;
       }
     }
 
@@ -720,7 +872,7 @@
 
     /* --- 底部品牌区：柔和渐变底 + 两栏布局（左品牌 / 右二维码） --- */
     .brand-section {
-      background: linear-gradient(180deg, #F6F9FD 0%, #EDF3FA 100%);
+      background: rgba(246, 250, 253, 0.56);
       border-top: 1px solid rgba(91, 140, 201, 0.10);
     }
     .brand-grid {
@@ -795,6 +947,19 @@
 
     /* --- 无障碍：用户偏好减少动效时关闭动画 --- */
     @media (prefers-reduced-motion: reduce) {
+      body {
+        background: #F2F7FC;
+        animation: none;
+      }
+      body::before,
+      body::after,
+      #app,
+      .bg-bubble-layer,
+      .bg-bubble,
+      .map-card,
+      .glass-search-area {
+        animation: none !important;
+      }
       .header-flow,
       .header-flow::after,
       .qr-card,
@@ -813,12 +978,22 @@
   </style>
 
   <!-- 51LA 访问统计 -->
-  <script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script>
-  <script>LA.init({id:"3RFy4ESstMwddOpN",ck:"3RFy4ESstMwddOpN"})</script>
+  <script charset="UTF-8" id="LA_COLLECT" src="https://sdk.51.la/js-sdk-pro.min.js"></script>
+  <script>if (typeof LA !== 'undefined' && LA && LA.init) { LA.init({id:"3RFy4ESstMwddOpN",ck:"3RFy4ESstMwddOpN"}); }</script>
 </head>
 <body data-page-node-id="4eWG2zJ2LkLoMBpZEHT780">
   <!-- 主容器 -->
   <div id="app" class="max-w-2xl mx-auto bg-white min-h-dvh" data-page-node-id="HFdLK1f9hDwwmgbWF9aoRC">
+    <div class="bg-bubble-layer" aria-hidden="true">
+      <i class="bg-bubble bg-bubble-1"></i>
+      <i class="bg-bubble bg-bubble-2"></i>
+      <i class="bg-bubble bg-bubble-3"></i>
+      <i class="bg-bubble bg-bubble-4"></i>
+      <i class="bg-bubble bg-bubble-5"></i>
+      <i class="bg-bubble bg-bubble-6"></i>
+      <i class="bg-bubble bg-bubble-7"></i>
+      <i class="bg-bubble bg-bubble-8"></i>
+    </div>
     
     <!-- 顶部区（粘性） -->
     <div class="sticky-header" data-page-node-id="3YNgeLowzpd1fW4w98F8It">
@@ -835,7 +1010,7 @@
       </div>
       
       <!-- 搜索区 -->
-      <div class="px-4 py-3 bg-white" data-page-node-id="B4iExpi21j7MwrMgoeAIEp">
+      <div class="px-4 py-3 glass-search-area" data-page-node-id="B4iExpi21j7MwrMgoeAIEp">
         <div class="relative" data-page-node-id="fWdXSbezxk5b311AHggBxp">
           <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24" data-page-node-id="ikELFwKtcvKGJnJ8n39gZy">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" data-page-node-id="tkiaLic52byr6SAXA7YNRH"></path>
@@ -870,7 +1045,7 @@
       <p id="locationResult" class="text-center text-text-muted text-xs mt-2 min-h-[16px]" data-page-node-id="gh5aCLz7hN2rAaMKalyvK0"></p>
       <!-- V10: 定位/搜索多结果二级选择菜单（默认隐藏；仅列出候选小区，不暴露联系方式） -->
       <div id="nearbySelector" class="hidden"></div>
-      <div class="mt-3 rounded-2xl overflow-hidden scene-in delay-1" style="background: linear-gradient(180deg, #FDFEFF 0%, #F0F5FB 100%); border: 1px solid rgba(229, 234, 243, 0.9); box-shadow: 0 8px 22px rgba(91, 140, 201, 0.06);">
+      <div class="map-card mt-3 rounded-2xl overflow-hidden scene-in delay-1">
         <div class="flex items-center justify-between px-3 pt-3 pb-1">
           <p class="text-text font-medium text-sm">南京小区分布</p>
           <span class="text-[10px] text-text-muted bg-white/70 rounded-full px-2 py-0.5">地图仅高亮当前小区</span>
@@ -1044,8 +1219,8 @@
     </div>
     </div><!-- /mainLayout -->
     
-    <!-- 底部信息区（V10：左品牌信息 + 右二维码卡片两栏布局，窄屏自然堆叠） -->
-    <div class="bg-chip brand-section px-4 py-6 mt-4" data-page-node-id="xe6hEpO32kTBoHQzQnnT60">
+    <!-- 底部信息区（V11：磨砂玻璃层，保留左品牌信息 + 右二维码卡片两栏布局） -->
+    <div class="bg-chip brand-section px-4 py-6 mt-4" style="background: rgba(243, 247, 252, 0.68); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);" data-page-node-id="xe6hEpO32kTBoHQzQnnT60">
       <div class="brand-grid mb-4" data-page-node-id="NhCPZZIv5SY85Z1a8u9mAS">
         <!-- 左侧：品牌徽章 + 标题 + 副标题 + 服务说明 -->
         <div class="brand-info scene-in" data-page-node-id="4gH3hT9vVq7m2QpYwNxRcB">
@@ -1093,6 +1268,7 @@
     const TENCENT_MAP_KEY_PLACEHOLDER = 'Please apply for your own key at the Tencent Location Service Open Platform (lbs.qq.com) and replace this placeholder';
     const TENCENT_MAP_KEY = '27ABZ-IY2EZ-MX3X3-TINMC-DMBUZ-K5BU7'; // 用户申请的腾讯地图 Key（2026-09-15）
     const TENCENT_MAP_ENABLED =
+      !(window.location && window.location.protocol === 'file:') &&
       TENCENT_MAP_KEY.length > 20 &&
       TENCENT_MAP_KEY !== TENCENT_MAP_KEY_PLACEHOLDER;
     // 腾讯地图 SDK（GL JS v1；默认 Key 即内置标准底图样式，不使用自定义样式接口）
